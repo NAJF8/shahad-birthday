@@ -101,15 +101,29 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
+  transition: opacity 1.05s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.05s, transform 1.05s cubic-bezier(0.4, 0, 0.2, 1), filter 1.05s ease;
   overflow: hidden;
   padding: 24px;
+  transform: scale(1);
+  filter: blur(0);
 }
 
 .intro-screen.fade-out {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+  transform: scale(1.08);
+  filter: blur(14px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-screen {
+    transition: opacity 0.4s ease, visibility 0.4s;
+  }
+  .intro-screen.fade-out {
+    transform: none;
+    filter: none;
+  }
 }
 
 .intro-water-surface {
@@ -287,31 +301,52 @@ body {
   opacity: 0.9;
 }
 
-/* Enter button */
+/* Enter button — premium glass pill, not a stock bootstrap button */
 .intro-enter-btn {
   position: absolute;
   bottom: 8%;
   z-index: 30;
-  background: linear-gradient(135deg, #ff7597 0%, #f43f71 100%);
-  color: #fff;
-  border: none;
-  padding: 14px 38px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 117, 151, 0.55));
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  color: #6b1030;
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  padding: 15px 40px;
   border-radius: 9999px;
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 700;
   font-family: inherit;
   cursor: pointer;
-  box-shadow: 0 8px 25px rgba(244, 63, 113, 0.38), 0 0 0 4px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 30px rgba(219, 39, 119, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.9);
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  animation: bounceBtn 3s infinite;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, background 0.35s ease;
+  animation: introGlowPulse 3.2s ease-in-out infinite;
+}
+
+.intro-enter-btn .btn-arrow {
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .intro-enter-btn:hover {
   transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 12px 32px rgba(244, 63, 113, 0.48), 0 0 0 6px rgba(255, 255, 255, 0.7);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 117, 151, 0.7));
+  box-shadow: 0 16px 38px rgba(219, 39, 119, 0.35), inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+.intro-enter-btn:hover .btn-arrow {
+  transform: translateX(-4px);
+}
+
+@keyframes introGlowPulse {
+  0%, 100% { box-shadow: 0 10px 30px rgba(219, 39, 119, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.9); }
+  50% { box-shadow: 0 10px 38px rgba(219, 39, 119, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 0 0 6px rgba(255, 255, 255, 0.25); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-enter-btn { animation: none; }
 }
 
 @keyframes bounceBtn {

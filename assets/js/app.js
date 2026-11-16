@@ -79,9 +79,18 @@ function initIntroScreen() {
     return;
   }
 
-  enterBtn.addEventListener('click', () => {
-    // Start music on first interaction if enabled
-    if (siteData.sections?.music && window.birthdayAudio) {
+  let dismissed = false;
+  let autoAdvanceTimer = null;
+
+  function enterSite(userInitiated) {
+    if (dismissed) return;
+    dismissed = true;
+    clearTimeout(autoAdvanceTimer);
+
+    // Start music on first interaction if enabled (only from a real click —
+    // browsers block autoplay without a user gesture, so the auto-advance
+    // path intentionally skips this)
+    if (userInitiated && siteData.sections?.music && window.birthdayAudio) {
       window.birthdayAudio.start();
     }
 
@@ -95,13 +104,19 @@ function initIntroScreen() {
       });
     }
 
-    // Smooth fade out
+    // Smooth cinematic exit: fade + scale + blur (not a plain display:none cut)
     intro.classList.add('fade-out');
     sessionStorage.setItem('shahad_intro_seen', 'true');
     setTimeout(() => {
       intro.style.display = 'none';
-    }, 1200);
-  });
+    }, 1100);
+  }
+
+  enterBtn.addEventListener('click', () => enterSite(true));
+
+  // Gentle safety net so no one gets stuck on the intro — the button always
+  // stays available and works instantly even if this fires.
+  autoAdvanceTimer = setTimeout(() => enterSite(false), 7000);
 }
 
 // ==========================================================================
