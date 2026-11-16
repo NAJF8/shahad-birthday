@@ -2,10 +2,123 @@
   "name": "شهد عادل",
   "birthday": "21 أكتوبر",
   "birthDate": "2026-10-21",
-  "heroImage": "assets/images/shahad_hero_swan.jpg",
+  "heroImage": "selected-photos/photo_2026-11-16_04-20-55.jpg",
   "heroTagline": "اليوم كله لكِ، وكل تفصيلة تحتفل بجمالكِ ورقتكِ 🎀",
   "message": "كل عام وأنتِ بخير شهد عادل،\nأتمنى تكون سنتك الجديدة مليانة فرح وضحكة وذكريات حلوة،\nوتحققين كل شيء تتمنينه 🤍",
-  "gallery": [],
+  "gallery": [
+    {
+      "id": "selected_1794792370850_0",
+      "src": "selected-photos/photo_2026-11-16_04-20-55.jpg",
+      "caption": "",
+      "date": "",
+      "type": "moments"
+    },
+    {
+      "id": "selected_1794792370854_1",
+      "src": "selected-photos/photo_2026-11-16_04-20-56.jpg",
+      "caption": "",
+      "date": "",
+      "type": "moments"
+    },
+    {
+      "id": "selected_1794792370855_2",
+      "src": "selected-photos/photo_2026-11-16_04-20-57.jpg",
+      "caption": "",
+      "date": "",
+      "type": "moments"
+    },
+    {
+      "id": "selected_1794792370855_3",
+      "src": "selected-photos/photo_2026-11-16_04-20-58-b.jpg",
+      "caption": "",
+      "date": "",
+      "type": "moments"
+    },
+    {
+      "id": "selected_1794792370855_4",
+      "src": "selected-photos/photo_2026-11-16_04-20-58.jpg",
+      "caption": "",
+      "date": "",
+      "type": "moments"
+    },
+    {
+      "id": "selected_1794792370855_5",
+      "src": "selected-photos/photo_2026-11-16_04-20-59.jpg",
+      "caption": "",
+      "date": "",
+      "type": "moments"
+    },
+    {
+      "id": "selected_1794792370855_6",
+      "src": "selected-photos/photo_2026-11-16_04-21-00.jpg",
+      "caption": "",
+      "date": "",
+      "type": "moments"
+    },
+    {
+      "id": "selected_1794792370855_7",
+      "src": "selected-photos/photo_2026-11-16_04-21-02.jpg",
+      "caption": "",
+      "date": "",
+      "type": "moments"
+    },
+    {
+      "id": "selected_1794792370855_8",
+      "src": "selected-photos/photo_2026-11-16_04-21-05.jpg",
+      "caption": "",
+      "date": "",
+      "type": "moments"
+    },
+    {
+      "id": "selected_1794792370855_9",
+      "src": "selected-photos/photo_2026-11-16_04-21-07.jpg",
+      "caption": "",
+      "date": "",
+      "type": "moments"
+    },
+    {
+      "id": "selected_1794792370855_10",
+      "src": "selected-photos/photo_2026-11-16_04-21-10.jpg",
+      "caption": "",
+      "date": "",
+      "type": "wall"
+    },
+    {
+      "id": "selected_1794792370855_11",
+      "src": "selected-photos/photo_2026-11-16_04-21-11.jpg",
+      "caption": "",
+      "date": "",
+      "type": "wall"
+    },
+    {
+      "id": "selected_1794792370855_12",
+      "src": "selected-photos/photo_2026-11-16_04-21-12.jpg",
+      "caption": "",
+      "date": "",
+      "type": "wall"
+    },
+    {
+      "id": "selected_1794792370855_13",
+      "src": "selected-photos/photo_2026-11-16_04-21-13.jpg",
+      "caption": "",
+      "date": "",
+      "type": "wall"
+    },
+    {
+      "id": "selected_1794792370855_14",
+      "src": "selected-photos/photo_2026-11-16_04-21-16.jpg",
+      "caption": "",
+      "date": "",
+      "type": "wall"
+    },
+    {
+      "id": "selected_1794792370855_15",
+      "src": "selected-photos/photo_2026-11-16_04-21-17.jpg",
+      "caption": "",
+      "date": "",
+      "type": "wall"
+    }
+  ],
   "wishes": [
     {
       "id": "w1",
