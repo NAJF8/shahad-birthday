@@ -14,7 +14,41 @@
 </head>
 <body>
 
+  <!-- ==========================================================================
+       LOGIN GATE — basic client-side access gate, NOT real server security.
+       Anyone who reads the page source can see the check. It exists only to
+       keep this page from opening by accident, not to protect it from a
+       determined visitor. Do not treat this as a secure admin system.
+       ========================================================================== -->
+  <div id="login-gate" class="login-gate">
+    <form id="login-form" class="login-card">
+      <div class="login-logo">🎀</div>
+      <h1>تسجيل الدخول للوحة التحكم</h1>
+      <p class="login-sub">هذه اللوحة مخصصة لإدارة محتوى موقع شهد عادل فقط.</p>
+
+      <div class="form-group">
+        <label for="login-username" class="form-label">Username</label>
+        <input type="text" id="login-username" class="form-input" autocomplete="username" required>
+      </div>
+      <div class="form-group">
+        <label for="login-password" class="form-label">Password</label>
+        <input type="password" id="login-password" class="form-input" autocomplete="current-password" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary login-submit">
+        <span>🔐</span>
+        <span>Login</span>
+      </button>
+      <p id="login-error" class="login-error" hidden>اسم المستخدم أو كلمة المرور غير صحيحة.</p>
+
+      <p class="login-disclaimer">
+        ⚠️ هذا حاجز دخول بسيط من جهة المتصفح فقط (client-side)، وليس حماية خادم حقيقية — لأن الموقع مستضاف بالكامل على GitHub Pages بدون أي Backend. أي شخص يفحص كود الصفحة يمكنه تجاوزه نظرياً. لا تشاركي رابط هذه الصفحة علناً، واعتبريها حماية من الدخول العرضي فقط وليست أماناً فعلياً.
+      </p>
+    </form>
+  </div>
+
   <!-- Admin Header -->
+  <div id="admin-protected" hidden>
   <header class="admin-header">
     <div class="admin-header-inner">
       <div class="admin-brand">
@@ -37,6 +71,10 @@
         <button id="btn-export-json" class="btn btn-secondary" title="تحميل ملف site.json المحدّث">
           <span>📥</span>
           <span>تصدير site.json</span>
+        </button>
+        <button id="btn-logout" class="btn btn-secondary" title="تسجيل الخروج">
+          <span>🚪</span>
+          <span>خروج</span>
         </button>
       </div>
     </div>
@@ -69,7 +107,11 @@
       </button>
       <button class="tab-btn" data-target="tab-tiktok">
         <span>🎵</span>
-        <span>حساب TikTok</span>
+        <span>TikTok / Instagram</span>
+      </button>
+      <button class="tab-btn" data-target="tab-prevbirthdays">
+        <span>🎂</span>
+        <span>أعياد ميلاد سابقة</span>
       </button>
       <button class="tab-btn" data-target="tab-maintenance">
         <span>🔄</span>
@@ -219,9 +261,25 @@
           </div>
 
           <div class="toggle-item">
-            <span class="toggle-label">🎵 قسم حساب تيك توك الخاص بشهد (TikTok Feature)</span>
+            <span class="toggle-label">🎵 حساب TikTok الخاص بشهد</span>
             <label class="switch">
               <input type="checkbox" id="toggle-tiktok">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-item">
+            <span class="toggle-label">📷 حساب Instagram الخاص بشهد</span>
+            <label class="switch">
+              <input type="checkbox" id="toggle-instagram">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-item">
+            <span class="toggle-label">🎂 قسم ذكريات أعياد الميلاد السابقة</span>
+            <label class="switch">
+              <input type="checkbox" id="toggle-previousBirthdays">
               <span class="slider"></span>
             </label>
           </div>
@@ -313,6 +371,77 @@
           </div>
         </form>
       </div>
+
+      <div class="admin-card">
+        <h2 class="card-title"><span>📷</span> بيانات حساب Instagram العام</h2>
+        <p class="card-subtitle">تم التحقق من وجود هذا الحساب فعلياً، لكنه خاص (Private) — لا يمكن عرض صوره</p>
+
+        <form id="instagram-form">
+          <div class="form-grid form-grid-2">
+            <div class="form-group">
+              <label for="adm-ig-user" class="form-label">اسم المستخدم (Username):</label>
+              <input type="text" id="adm-ig-user" class="form-input">
+            </div>
+
+            <div class="form-group">
+              <label for="adm-ig-display" class="form-label">الاسم الظاهر في الملف:</label>
+              <input type="text" id="adm-ig-display" class="form-input">
+            </div>
+
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label for="adm-ig-link" class="form-label">رابط الحساب المباشر:</label>
+              <input type="url" id="adm-ig-link" class="form-input">
+            </div>
+          </div>
+
+          <div style="margin-top: 24px;">
+            <button type="submit" class="btn btn-primary">
+              <span>💾</span>
+              <span>حفظ بيانات Instagram</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- TAB 7b: Previous Birthdays Manager -->
+    <section id="tab-prevbirthdays" class="admin-tab-content" style="display: none;">
+      <div class="admin-card">
+        <h2 class="card-title"><span>🎂</span> ذكريات أعياد الميلاد السابقة</h2>
+        <p class="card-subtitle">أضيفي فقط ذكريات حقيقية — اتركي "السنة" فارغة إذا لم تكوني متأكدة منها، ولا تخترعي تواريخ</p>
+
+        <div id="prevbday-upload-dropzone" class="upload-dropzone">
+          <div class="upload-icon">🎂</div>
+          <div class="upload-title">اسحبي صورة الذكرى وأفلتيها هنا، أو اضغطي للاختيار</div>
+        </div>
+        <input type="file" id="prevbday-file-input" accept="image/*" style="display: none;">
+
+        <div id="prevbday-preview-box" style="display: none; margin-top: 20px; padding: 20px; background: #fff0f5; border-radius: 16px; border: 1px solid #fbcfe8;">
+          <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <img id="prevbday-preview-img" src="" alt="Preview" style="width: 110px; height: 110px; object-fit: cover; border-radius: 14px; border: 2px solid var(--admin-primary);">
+            <div style="flex-grow: 1; min-width: 220px;">
+              <div class="form-group">
+                <label class="form-label">السنة (اختياري — اتركيه فارغاً إذا غير معروف):</label>
+                <input type="text" id="prevbday-year" class="form-input" placeholder="مثال: 2024">
+              </div>
+              <div class="form-group">
+                <label class="form-label">العنوان:</label>
+                <input type="text" id="prevbday-title" class="form-input" placeholder="مثال: عيد ميلاد مليان فرح">
+              </div>
+              <div class="form-group">
+                <label class="form-label">وصف قصير (اختياري):</label>
+                <input type="text" id="prevbday-desc" class="form-input">
+              </div>
+              <button id="btn-add-prevbday" type="button" class="btn btn-primary">
+                <span>➕</span>
+                <span>إضافة الذكرى</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="adm-prevbday-list" class="admin-gallery-grid" style="margin-top: 24px;"></div>
+      </div>
     </section>
 
     <!-- TAB 7: Backup & Reset -->
@@ -332,6 +461,7 @@
   </main>
 
   <div id="toast-container"></div>
+  </div> <!-- /#admin-protected -->
 
   <!-- Scripts -->
   <script src="../assets/js/data.js"></script>

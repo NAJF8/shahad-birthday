@@ -13,16 +13,35 @@ document.addEventListener('DOMContentLoaded', () => {
 let siteData = {};
 let currentLightboxIndex = 0;
 
+function deepMergeSiteData(base, override) {
+  if (typeof override !== 'object' || override === null || Array.isArray(override)) {
+    return override === undefined ? base : override;
+  }
+  const result = { ...base };
+  for (const key of Object.keys(override)) {
+    if (
+      typeof override[key] === 'object' && override[key] !== null && !Array.isArray(override[key]) &&
+      typeof base?.[key] === 'object' && base[key] !== null && !Array.isArray(base[key])
+    ) {
+      result[key] = deepMergeSiteData(base[key], override[key]);
+    } else {
+      result[key] = override[key];
+    }
+  }
+  return result;
+}
+
 function getStoredData() {
+  const defaults = window.INITIAL_SITE_DATA || {};
   const local = localStorage.getItem('shahad_site_data');
   if (local) {
     try {
-      return JSON.parse(local);
+      return deepMergeSiteData(defaults, JSON.parse(local));
     } catch (e) {
       console.error('Error parsing stored data', e);
     }
   }
-  return window.INITIAL_SITE_DATA || {};
+  return defaults;
 }
 
 function initApp() {
@@ -34,6 +53,7 @@ function initApp() {
   renderMessage();
   renderCake();
   renderGallery();
+  renderPreviousBirthdays();
   renderTikTok();
   renderWishes();
   initIntroScreen();
@@ -343,29 +363,82 @@ function updateLightboxContent() {
 }
 
 // ==========================================================================
-// 8. TikTok Feature Card
+// 8. Social Section (TikTok + Instagram)
 // ==========================================================================
 function renderTikTok() {
   const ttSection = document.getElementById('tiktok-section');
+  const socialSection = document.getElementById('social-section');
   if (!ttSection) return;
 
-  if (siteData.sections?.tiktok === false || !siteData.tiktok?.enabled) {
-    ttSection.style.display = 'none';
-    return;
+  const ttOn = siteData.sections?.tiktok !== false && siteData.tiktok?.enabled;
+  const igOn = siteData.sections?.instagram !== false && siteData.instagram?.enabled;
+  if (socialSection) socialSection.style.display = (ttOn || igOn) ? 'block' : 'none';
+
+  ttSection.style.display = ttOn ? 'flex' : 'none';
+  if (ttOn) {
+    const avatar = document.getElementById('tt-avatar');
+    const displayName = document.getElementById('tt-display-name');
+    const handle = document.getElementById('tt-handle');
+    const link = document.getElementById('tt-link');
+    const note = document.getElementById('tt-note');
+
+    if (avatar && siteData.tiktok.avatar) avatar.src = siteData.tiktok.avatar;
+    if (displayName) displayName.textContent = escapeHTML(siteData.tiktok.displayName || 'شَهــد 🦢');
+    if (handle) handle.textContent = `@${escapeHTML(siteData.tiktok.username || '8tlt8_')}`;
+    if (link && siteData.tiktok.profileUrl) link.href = siteData.tiktok.profileUrl;
+    if (note && siteData.tiktok.note) note.textContent = siteData.tiktok.note;
   }
-  ttSection.style.display = 'block';
 
-  const avatar = document.getElementById('tt-avatar');
-  const displayName = document.getElementById('tt-display-name');
-  const handle = document.getElementById('tt-handle');
-  const link = document.getElementById('tt-link');
-  const note = document.getElementById('tt-note');
+  renderInstagram(igOn);
+}
 
-  if (avatar && siteData.tiktok.avatar) avatar.src = siteData.tiktok.avatar;
-  if (displayName) displayName.textContent = siteData.tiktok.displayName || 'شَهــد 🦢';
-  if (handle) handle.textContent = `@${siteData.tiktok.username || '8tlt8_'}`;
-  if (link && siteData.tiktok.profileUrl) link.href = siteData.tiktok.profileUrl;
-  if (note && siteData.tiktok.note) note.textContent = siteData.tiktok.note;
+function renderInstagram(igOn) {
+  const igSection = document.getElementById('instagram-section');
+  if (!igSection) return;
+  igSection.style.display = igOn ? 'flex' : 'none';
+  if (!igOn || !siteData.instagram) return;
+
+  const ig = siteData.instagram;
+  const displayName = document.getElementById('ig-display-name');
+  const handle = document.getElementById('ig-handle');
+  const link = document.getElementById('ig-link');
+  const note = document.getElementById('ig-note');
+
+  if (displayName) displayName.textContent = escapeHTML(ig.displayName || 'Shahad');
+  if (handle) handle.textContent = `@${escapeHTML(ig.username || '8tlt8_')}`;
+  if (link && ig.profileUrl) link.href = ig.profileUrl;
+  if (note) note.textContent = ig.note || (ig.isPrivate ? 'هذا حساب خاص (Private).' : '');
+}
+
+// ==========================================================================
+// 8b. Previous Birthdays — only shown when real dated memories exist
+// ==========================================================================
+function renderPreviousBirthdays() {
+  const section = document.getElementById('prev-birthdays-section');
+  const grid = document.getElementById('prev-birthdays-grid');
+  if (!section || !grid) return;
+
+  const items = siteData.previousBirthdays || [];
+  const on = siteData.sections?.previousBirthdays !== false && items.length > 0;
+  section.hidden = !on;
+  if (!on) return;
+
+  grid.innerHTML = '';
+  items.forEach((item) => {
+    const card = document.createElement('div');
+    card.className = 'prev-birthday-card';
+    card.innerHTML = `
+      <div class="prev-birthday-img-wrap">
+        <img src="${escapeHTML(item.src)}" alt="${escapeHTML(item.title || 'ذكرى عيد ميلاد سابق')}" loading="lazy">
+      </div>
+      <div class="prev-birthday-meta">
+        ${item.year ? `<span class="prev-birthday-year">${escapeHTML(String(item.year))}</span>` : `<span class="prev-birthday-year">ذكرى من الماضي</span>`}
+        <h3>${escapeHTML(item.title || '')}</h3>
+        ${item.description ? `<p>${escapeHTML(item.description)}</p>` : ''}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
 }
 
 // ==========================================================================

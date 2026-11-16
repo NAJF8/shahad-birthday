@@ -192,6 +192,56 @@ body {
   filter: drop-shadow(0 14px 20px rgba(219, 39, 119, 0.18));
 }
 
+.crown-float {
+  transform-origin: 183px 20px;
+  animation: crownBob 3.2s ease-in-out infinite;
+}
+@keyframes crownBob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-1.5px) rotate(1.2deg); }
+}
+
+.goose-wing {
+  transform-origin: 170px 210px;
+  animation: wingDrift 4.2s ease-in-out infinite;
+}
+@keyframes wingDrift {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-2.2deg); }
+}
+
+.swan-sparkles {
+  position: absolute;
+  inset: -40px -60px auto -60px;
+  height: 220px;
+  pointer-events: none;
+}
+.swan-sparkles span {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, #F9A8D4 70%, transparent 100%);
+  opacity: 0;
+  animation: sparkleDrift 4.5s ease-in-out infinite;
+}
+.swan-sparkles span:nth-child(1){ left: 10%; top: 60%; animation-delay: 0s; }
+.swan-sparkles span:nth-child(2){ left: 30%; top: 15%; animation-delay: .8s; }
+.swan-sparkles span:nth-child(3){ left: 55%; top: 70%; animation-delay: 1.6s; }
+.swan-sparkles span:nth-child(4){ left: 75%; top: 25%; animation-delay: 2.4s; }
+.swan-sparkles span:nth-child(5){ left: 90%; top: 55%; animation-delay: 3.2s; }
+@keyframes sparkleDrift {
+  0% { opacity: 0; transform: translateY(10px) scale(0.5); }
+  40% { opacity: 0.9; }
+  100% { opacity: 0; transform: translateY(-30px) scale(1.1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crown-float, .goose-wing, .swan-sparkles span, .swan-container, .swan-ripples {
+    animation: none !important;
+  }
+}
+
 /* Intro Text */
 .intro-title-wrapper {
   text-align: center;
@@ -520,45 +570,45 @@ body {
    Countdown Banner
    ========================================================================== */
 .countdown-box {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 182, 193, 0.5);
-  border-radius: 28px;
-  padding: 20px 24px;
-  max-width: 600px;
+  max-width: 560px;
   margin: 0 auto 40px;
-  box-shadow: var(--glass-shadow);
   display: flex;
-  align-items: center;
-  justify-content: space-around;
-  gap: 12px;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0;
 }
 
 .countdown-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 18px;
 }
 
 .countdown-num {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--deep-rose);
+  font-family: var(--display-font, 'IBM Plex Sans Arabic', serif);
+  font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+  font-weight: 600;
+  color: var(--deep-rose, #9d174d);
   line-height: 1.1;
   font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
 }
 
 .countdown-label {
-  font-size: 0.8rem;
-  color: #9d174d;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: #c17a98;
   font-weight: 500;
-  margin-top: 2px;
+  margin-top: 6px;
+  text-transform: lowercase;
 }
 
 .countdown-divider {
   width: 1px;
-  height: 36px;
-  background: rgba(255, 182, 193, 0.6);
+  height: 30px;
+  align-self: center;
+  background: rgba(219, 39, 119, 0.22);
 }
 
 /* ==========================================================================
@@ -911,14 +961,103 @@ body {
 }
 
 /* ==========================================================================
-   TikTok Special Feature Card
+   Social Section — Find Shahad (TikTok + Instagram)
    ========================================================================== */
-.tiktok-section {
+.social-section {
   position: relative;
   z-index: 10;
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto 80px;
   padding: 0 20px;
+}
+
+.social-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+
+@media (min-width: 860px) {
+  .social-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ==========================================================================
+   Previous Birthdays
+   ========================================================================== */
+.prev-birthdays-section {
+  position: relative;
+  z-index: 10;
+  max-width: 1100px;
+  margin: 0 auto 80px;
+  padding: 0 20px;
+}
+
+.prev-birthdays-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 22px;
+}
+
+.prev-birthday-card {
+  background: #ffffff;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -10px rgba(157, 23, 77, 0.22);
+  border: 1px solid rgba(255, 182, 193, 0.5);
+  transform: rotate(var(--tilt, -1.2deg));
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.prev-birthday-card:nth-child(even) { --tilt: 1.4deg; }
+.prev-birthday-card:hover {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: var(--glass-shadow);
+}
+.prev-birthday-img-wrap {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+.prev-birthday-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.prev-birthday-meta {
+  padding: 16px 18px 20px;
+}
+.prev-birthday-year {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: var(--deep-rose);
+  background: var(--soft-pink, #fce7f3);
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+.prev-birthday-meta h3 {
+  font-size: 1rem;
+  margin: 0 0 4px;
+  color: #4a1525;
+}
+.prev-birthday-meta p {
+  font-size: 0.85rem;
+  color: #9d174d;
+  margin: 0;
+}
+
+.social-icon-badge {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  background: linear-gradient(145deg, #fff0f5, #ffe3ed);
+  border: 4px solid #ffffff;
+  box-shadow: 0 8px 24px rgba(244, 63, 113, 0.2);
 }
 
 .tiktok-card {

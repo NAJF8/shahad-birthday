@@ -37,13 +37,25 @@ window.INITIAL_SITE_DATA = {
     "avatar": "assets/images/shahad_hero_swan.jpg",
     "note": "تم جلب الاسم العام والصورة الرمزية (Avatar) لحساب شهد من صفحتها العامة على TikTok بشكل قانوني بدون تسجيل دخول. لم نتمكن من استخراج صور أو فيديوهات أخرى بسبب حماية TikTok ضد الاستخراج الآلي — يمكن رفع صور إضافية من ذكريات شهد يدوياً من لوحة التحكم."
   },
+  "instagram": {
+    "enabled": true,
+    "username": "8tlt8_",
+    "displayName": "Shahad 🩰🪞",
+    "profileUrl": "https://www.instagram.com/8tlt8_/",
+    "verified": true,
+    "isPrivate": true,
+    "note": "تم التحقق من وجود هذا الحساب فعلياً (نفس الاسم والرمز 🦢 الموجود في TikTok)، لكنه حساب خاص (Private) — لذلك لا يمكن عرض صوره هنا، فقط رابط المتابعة."
+  },
+  "previousBirthdays": [],
   "sections": {
     "intro": true,
     "hero": true,
     "countdown": true,
     "message": true,
     "gallery": true,
+    "previousBirthdays": true,
     "tiktok": true,
+    "instagram": true,
     "wishes": true,
     "cake": true,
     "music": true

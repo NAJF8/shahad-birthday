@@ -8,25 +8,90 @@ function escapeHTML(str) {
 
 let adminData = {};
 
+const ADMIN_USERNAME = 'mohammed';
+const ADMIN_PASSWORD = '0224';
+const AUTH_SESSION_KEY = 'shahad_admin_authed';
+
 document.addEventListener('DOMContentLoaded', () => {
+  setupLoginGate();
+});
+
+function setupLoginGate() {
+  const gate = document.getElementById('login-gate');
+  const protectedArea = document.getElementById('admin-protected');
+  const form = document.getElementById('login-form');
+  const errorMsg = document.getElementById('login-error');
+
+  function showDashboard() {
+    gate.style.display = 'none';
+    protectedArea.hidden = false;
+    initDashboard();
+  }
+
+  if (sessionStorage.getItem(AUTH_SESSION_KEY) === '1') {
+    showDashboard();
+    return;
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const user = document.getElementById('login-username').value.trim();
+    const pass = document.getElementById('login-password').value;
+
+    if (user === ADMIN_USERNAME && pass === ADMIN_PASSWORD) {
+      sessionStorage.setItem(AUTH_SESSION_KEY, '1');
+      errorMsg.hidden = true;
+      showDashboard();
+    } else {
+      errorMsg.hidden = false;
+    }
+  });
+}
+
+function initDashboard() {
   loadAdminData();
   setupTabs();
   setupForms();
   setupUploadZone();
+  setupPrevBdayUpload();
   setupGlobalActions();
-});
+
+  document.getElementById('btn-logout')?.addEventListener('click', () => {
+    sessionStorage.removeItem(AUTH_SESSION_KEY);
+    location.reload();
+  });
+}
+
+function deepMergeSiteData(base, override) {
+  if (typeof override !== 'object' || override === null || Array.isArray(override)) {
+    return override === undefined ? base : override;
+  }
+  const result = { ...base };
+  for (const key of Object.keys(override)) {
+    if (
+      typeof override[key] === 'object' && override[key] !== null && !Array.isArray(override[key]) &&
+      typeof base?.[key] === 'object' && base[key] !== null && !Array.isArray(base[key])
+    ) {
+      result[key] = deepMergeSiteData(base[key], override[key]);
+    } else {
+      result[key] = override[key];
+    }
+  }
+  return result;
+}
 
 function loadAdminData() {
+  const defaults = JSON.parse(JSON.stringify(window.INITIAL_SITE_DATA || {}));
   const local = localStorage.getItem('shahad_site_data');
   if (local) {
     try {
-      adminData = JSON.parse(local);
+      adminData = deepMergeSiteData(defaults, JSON.parse(local));
     } catch (e) {
       console.error('Error parsing admin data', e);
-      adminData = JSON.parse(JSON.stringify(window.INITIAL_SITE_DATA || {}));
+      adminData = defaults;
     }
   } else {
-    adminData = JSON.parse(JSON.stringify(window.INITIAL_SITE_DATA || {}));
+    adminData = defaults;
   }
 
   populateBasicInfo();
@@ -36,6 +101,8 @@ function loadAdminData() {
   populateToggles();
   populateWishes();
   populateTikTok();
+  populateInstagram();
+  populatePrevBirthdays();
 }
 
 // 1. Tabs Switching
@@ -97,6 +164,8 @@ function populateToggles() {
   const toggles = [
     { id: 'toggle-gallery', key: 'gallery' },
     { id: 'toggle-tiktok', key: 'tiktok' },
+    { id: 'toggle-instagram', key: 'instagram' },
+    { id: 'toggle-previousBirthdays', key: 'previousBirthdays' },
     { id: 'toggle-wishes', key: 'wishes' },
     { id: 'toggle-music', key: 'music' },
     { id: 'toggle-cake', key: 'cake' },
@@ -127,6 +196,55 @@ function populateTikTok() {
   if (userEl) userEl.value = adminData.tiktok.username || '8tlt8_';
   if (dispEl) dispEl.value = adminData.tiktok.displayName || 'شَهــد 🦢';
   if (linkEl) linkEl.value = adminData.tiktok.profileUrl || 'https://www.tiktok.com/@8tlt8_';
+}
+
+// 6b. Populate Instagram Info
+function populateInstagram() {
+  const userEl = document.getElementById('adm-ig-user');
+  const dispEl = document.getElementById('adm-ig-display');
+  const linkEl = document.getElementById('adm-ig-link');
+
+  if (!adminData.instagram) adminData.instagram = {};
+  if (userEl) userEl.value = adminData.instagram.username || '8tlt8_';
+  if (dispEl) dispEl.value = adminData.instagram.displayName || 'Shahad';
+  if (linkEl) linkEl.value = adminData.instagram.profileUrl || 'https://www.instagram.com/8tlt8_/';
+}
+
+// 6c. Previous Birthdays Manager
+function populatePrevBirthdays() {
+  const container = document.getElementById('adm-prevbday-list');
+  if (!container) return;
+  container.innerHTML = '';
+  const list = adminData.previousBirthdays || [];
+
+  if (!list.length) {
+    container.innerHTML = '<p style="color: #9d174d; grid-column: 1/-1;">لا توجد ذكريات أعياد ميلاد سابقة مضافة بعد.</p>';
+    return;
+  }
+
+  list.forEach((item, index) => {
+    const card = document.createElement('div');
+    card.className = 'gallery-manage-card';
+    card.innerHTML = `
+      <div class="gallery-thumb-box">
+        <img class="gallery-thumb-img" src="${escapeHTML(resolveAssetPath(item.src))}" alt="${escapeHTML(item.title || '')}" />
+        ${item.year ? `<span class="hero-indicator-badge">${escapeHTML(String(item.year))}</span>` : ''}
+      </div>
+      <div class="gallery-card-caption">
+        <strong>${escapeHTML(item.title || '')}</strong>
+      </div>
+      <div class="gallery-card-actions">
+        <button class="btn btn-danger btn-sm del-prevbday-btn" data-idx="${index}">🗑️ حذف</button>
+      </div>
+    `;
+    card.querySelector('.del-prevbday-btn').addEventListener('click', () => {
+      adminData.previousBirthdays.splice(index, 1);
+      saveDataSilent();
+      populatePrevBirthdays();
+      showToast('تم حذف الذكرى');
+    });
+    container.appendChild(card);
+  });
 }
 
 // 7. Populate Gallery Manager
@@ -327,6 +445,73 @@ function setupUploadZone() {
   }
 }
 
+// 9b. Previous Birthdays Upload
+function setupPrevBdayUpload() {
+  const dropzone = document.getElementById('prevbday-upload-dropzone');
+  const fileInput = document.getElementById('prevbday-file-input');
+  const previewBox = document.getElementById('prevbday-preview-box');
+  const previewImg = document.getElementById('prevbday-preview-img');
+  const yearInput = document.getElementById('prevbday-year');
+  const titleInput = document.getElementById('prevbday-title');
+  const descInput = document.getElementById('prevbday-desc');
+  const addBtn = document.getElementById('btn-add-prevbday');
+
+  let currentDataUrl = null;
+  if (!dropzone || !fileInput) return;
+
+  dropzone.addEventListener('click', () => fileInput.click());
+  dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.style.borderColor = 'var(--admin-primary)'; });
+  dropzone.addEventListener('dragleave', () => { dropzone.style.borderColor = 'var(--admin-border)'; });
+  dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropzone.style.borderColor = 'var(--admin-border)';
+    if (e.dataTransfer.files?.length) handleFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files?.length) handleFile(fileInput.files[0]);
+  });
+
+  function handleFile(file) {
+    if (!file.type.startsWith('image/')) {
+      alert('يرجى اختيار ملف صورة صالح.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      currentDataUrl = e.target.result;
+      if (previewImg) previewImg.src = currentDataUrl;
+      if (previewBox) previewBox.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  addBtn?.addEventListener('click', () => {
+    if (!currentDataUrl) return;
+    const title = titleInput?.value.trim() || 'ذكرى من الماضي';
+    const year = yearInput?.value.trim() || '';
+    const description = descInput?.value.trim() || '';
+
+    adminData.previousBirthdays = adminData.previousBirthdays || [];
+    adminData.previousBirthdays.push({
+      id: 'pb_' + Date.now(),
+      src: currentDataUrl,
+      year,
+      title,
+      description
+    });
+    saveDataSilent();
+    populatePrevBirthdays();
+
+    currentDataUrl = null;
+    fileInput.value = '';
+    yearInput.value = '';
+    titleInput.value = '';
+    descInput.value = '';
+    previewBox.style.display = 'none';
+    showToast('تمت إضافة الذكرى بنجاح 🎂');
+  });
+}
+
 // 10. Forms Submissions
 function setupForms() {
   // Save basic info
@@ -352,6 +537,16 @@ function setupForms() {
     adminData.tiktok.username = document.getElementById('adm-tt-user').value.trim();
     adminData.tiktok.displayName = document.getElementById('adm-tt-display').value.trim();
     adminData.tiktok.profileUrl = document.getElementById('adm-tt-link').value.trim();
+    saveDataWithFeedback();
+  });
+
+  // Save Instagram
+  document.getElementById('instagram-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    adminData.instagram = adminData.instagram || {};
+    adminData.instagram.username = document.getElementById('adm-ig-user').value.trim();
+    adminData.instagram.displayName = document.getElementById('adm-ig-display').value.trim();
+    adminData.instagram.profileUrl = document.getElementById('adm-ig-link').value.trim();
     saveDataWithFeedback();
   });
 }

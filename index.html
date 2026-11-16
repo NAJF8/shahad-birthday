@@ -52,46 +52,65 @@
       <p class="intro-subtitle">كل عام وأنتِ أجمل، وكل يوم يحمل لكِ فرحة تليق بقلبكِ 🤍</p>
     </div>
 
-    <!-- The Graceful Pink Swan Swimming Scene -->
+    <!-- The Elegant Crowned Pink Swan — original artwork, not traced from any reference -->
     <div class="swan-container">
       <div class="swan-ripples"></div>
-      <!-- SVG Cute Swan wearing a Pink Bonnet -->
-      <svg class="cute-swan-svg" viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Water shadow -->
-        <ellipse cx="160" cy="255" rx="100" ry="18" fill="rgba(244, 114, 182, 0.22)" />
-        <ellipse cx="155" cy="254" rx="75" ry="12" fill="rgba(255, 255, 255, 0.45)" />
+      <div class="swan-sparkles" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <svg class="cute-swan-svg" viewBox="0 0 320 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="swanBody" x1="60" y1="150" x2="270" y2="260" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="100%" stop-color="#FFE6F0"/>
+          </linearGradient>
+          <linearGradient id="swanNeck" x1="150" y1="40" x2="210" y2="170" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="100%" stop-color="#FFEAF3"/>
+          </linearGradient>
+          <linearGradient id="crownGold" x1="120" y1="10" x2="185" y2="40" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#F6D98B"/>
+            <stop offset="100%" stop-color="#D9A94B"/>
+          </linearGradient>
+        </defs>
 
-        <!-- Swan Body -->
-        <path d="M75 190 C65 145, 120 135, 165 145 C205 155, 250 170, 260 215 C265 240, 220 255, 160 255 C100 255, 80 230, 75 190 Z" fill="#FFFFFF" stroke="#FCE7F3" stroke-width="2" />
-        
-        <!-- Soft Pink Feather Layers on Wing -->
-        <path d="M110 185 C145 165, 205 180, 235 220 C205 235, 150 238, 115 210 Z" fill="#FFF5F7" stroke="#FBCFE8" stroke-width="1.5" />
-        <path d="M135 195 C165 180, 215 190, 228 225 C200 238, 160 235, 135 215 Z" fill="#FFE4E9" opacity="0.8" />
-        
-        <!-- Graceful Neck -->
-        <path d="M195 160 C190 120, 205 75, 175 48 C160 35, 138 42, 142 62 C146 80, 168 105, 165 155 Z" fill="#FFFFFF" stroke="#FCE7F3" stroke-width="2" />
-        
+        <!-- Water shadow / reflection -->
+        <ellipse cx="165" cy="272" rx="105" ry="14" fill="rgba(219,39,119,0.14)"/>
+        <ellipse cx="160" cy="270" rx="78" ry="9" fill="rgba(255,255,255,0.5)"/>
+
+        <!-- Body -->
+        <path d="M70 205 C58 160, 118 142, 168 150 C212 157, 258 168, 272 208 C280 234, 235 258, 165 258 C100 258, 78 244, 70 205 Z" fill="url(#swanBody)" stroke="#F3C4DA" stroke-width="2"/>
+
+        <!-- Wing: one subtle feather crease near the back, kept far from the neck to avoid any seam -->
+        <g class="goose-wing">
+          <path d="M95 185 C120 172, 150 174, 172 186" stroke="#F3B9D4" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.6"/>
+        </g>
+
+        <!-- Graceful S-curve neck (its base sinks well into the body fill so no seam shows) -->
+        <path d="M205 195 C214 145, 224 105, 206 72 C196 54, 180 42, 165 48 C150 54, 146 73, 158 87 C172 103, 184 140, 182 195 Z" fill="url(#swanNeck)"/>
+
         <!-- Head -->
-        <circle cx="152" cy="52" r="24" fill="#FFFFFF" />
+        <ellipse cx="183" cy="46" rx="22" ry="20" fill="#FFFFFF" stroke="#F3C4DA" stroke-width="1.5"/>
 
-        <!-- Soft Rosy Blush Cheek -->
-        <ellipse cx="144" cy="56" rx="6" ry="4" fill="#F472B6" opacity="0.45" />
+        <!-- Soft blush cheek -->
+        <ellipse cx="176" cy="52" rx="5.5" ry="3.5" fill="#F472B6" opacity="0.4"/>
 
-        <!-- Golden Beak & Dark Mask -->
-        <path d="M132 50 C122 51, 105 57, 100 63 C108 67, 124 65, 134 60 Z" fill="#FB923C" stroke="#F97316" stroke-width="1" />
-        <path d="M136 50 C130 52, 126 56, 134 59 C138 56, 140 52, 136 50 Z" fill="#1F2937" />
-        <circle cx="140" cy="48" r="3" fill="#111827" />
-        <circle cx="141" cy="47" r="1" fill="#FFFFFF" />
+        <!-- Eye -->
+        <circle cx="189" cy="42" r="2.6" fill="#2D1420"/>
+        <circle cx="190" cy="41" r="0.9" fill="#FFFFFF"/>
 
-        <!-- Pink Sleep Bonnet / Hat with Lace Ruffle & Bow (from her real TikTok photo!) -->
-        <path d="M142 32 C158 26, 178 36, 175 58 C173 70, 158 74, 146 72 C142 64, 140 45, 142 32 Z" fill="#FFCCD5" stroke="#F472B6" stroke-width="1.5" />
-        <!-- Lace ruffles around bonnet -->
-        <path d="M140 33 Q143 28 147 31 Q152 27 156 30 Q161 27 165 31 Q170 29 173 34 Q177 39 175 45 Q178 51 174 57 Q175 63 170 67 Q165 72 158 72 Q151 74 146 71" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" />
-        <!-- Ribbon bow on bonnet -->
-        <ellipse cx="142" cy="48" rx="5" ry="3" fill="#FF7597" transform="rotate(-30 142 48)" />
-        <ellipse cx="142" cy="53" rx="5" ry="3" fill="#FF7597" transform="rotate(30 142 53)" />
-        <circle cx="142" cy="50" r="2.5" fill="#DB2777" />
-        <path d="M143 52 Q148 64 146 72 M141 52 Q138 65 135 70" stroke="#FF7597" stroke-width="2" stroke-linecap="round" fill="none" />
+        <!-- Beak: black knob + soft rose tip, swan-style (not duck-orange) -->
+        <path d="M203 44 C213 43, 224 46, 229 51 C222 55, 210 54, 202 50 Z" fill="#E8A6BE" stroke="#C97FA0" stroke-width="1"/>
+        <path d="M201 42 C206 41, 211 43, 212 46 C209 48, 204 47, 201 45 Z" fill="#2D1420"/>
+
+        <!-- Elegant diadem crown, resting just above the head -->
+        <g class="crown-float">
+          <path d="M165 28 L170 14 L177 24 L183 10 L190 24 L197 14 L202 28 Z" fill="url(#crownGold)" stroke="#B9873A" stroke-width="1.2" stroke-linejoin="round"/>
+          <rect x="165" y="27" width="37" height="6" rx="2.5" fill="url(#crownGold)" stroke="#B9873A" stroke-width="1"/>
+          <circle cx="183" cy="19" r="3.1" fill="#F7A8C4" stroke="#DB2777" stroke-width="0.8"/>
+          <circle cx="171" cy="24" r="2" fill="#FBCFE8"/>
+          <circle cx="195" cy="24" r="2" fill="#FBCFE8"/>
+        </g>
       </svg>
     </div>
 
@@ -127,12 +146,6 @@
         <button id="confetti-btn" class="icon-btn" title="انثري الفرح والورد" aria-label="انثري الاحتفال">
           <span>✨</span>
         </button>
-
-        <!-- Direct Admin Link -->
-        <a href="admin/index.html" class="admin-link-btn" title="لوحة إدارة الموقع">
-          <span>⚙️</span>
-          <span>لوحة التحكم</span>
-        </a>
       </div>
     </nav>
   </header>
@@ -244,29 +257,70 @@
     </section>
 
     <!-- ==========================================================================
-         TIKTOK SPECIAL FEATURE SECTION
+         SOCIAL SECTION — Find Shahad (TikTok + Instagram)
          ========================================================================== -->
-    <section class="tiktok-section" id="tiktok-section">
-      <div class="tiktok-card">
-        <div class="tiktok-avatar-side">
-          <img id="tt-avatar" class="tiktok-avatar-img" src="assets/images/shahad_hero_swan.jpg" alt="حساب تيك توك شهد">
+    <section class="social-section" id="social-section">
+      <div class="section-header">
+        <div class="section-badge">
+          <span>🦢</span>
+          <span>تابعوا شهد</span>
         </div>
-        <div class="tiktok-info-side">
-          <div class="tiktok-badge-pill">
-            <span>🎵</span>
-            <span>حساب TikTok العام</span>
-          </div>
-          <h3 class="tiktok-username" id="tt-display-name">شَهــد 🦢</h3>
-          <p class="tiktok-handle" id="tt-handle">@8tlt8_</p>
-          <p class="tiktok-note" id="tt-note">
-            تم جلب الاسم العام والصورة الرمزية لحساب شهد من صفحتها العامة على TikTok بشكل قانوني. لم نتمكن من استخراج صور أو فيديوهات أخرى بسبب حماية TikTok — يمكن رفع صور إضافية من لوحة التحكم.
-          </p>
-          <a id="tt-link" href="https://www.tiktok.com/@8tlt8_" target="_blank" rel="noopener noreferrer" class="tiktok-visit-btn">
-            <span>زيارة الملف الشخصي على TikTok</span>
-            <span>↗</span>
-          </a>
-        </div>
+        <h2 class="section-title">Find Shahad</h2>
       </div>
+
+      <div class="social-grid">
+        <article class="tiktok-card" id="tiktok-section">
+          <div class="tiktok-avatar-side">
+            <img id="tt-avatar" class="tiktok-avatar-img" src="assets/images/shahad_hero_swan.jpg" alt="حساب تيك توك شهد">
+          </div>
+          <div class="tiktok-info-side">
+            <div class="tiktok-badge-pill">
+              <span>🎵</span>
+              <span>TikTok</span>
+            </div>
+            <h3 class="tiktok-username" id="tt-display-name">شَهــد 🦢</h3>
+            <p class="tiktok-handle" id="tt-handle">@8tlt8_</p>
+            <p class="tiktok-note" id="tt-note"></p>
+            <a id="tt-link" href="https://www.tiktok.com/@8tlt8_" target="_blank" rel="noopener noreferrer" class="tiktok-visit-btn">
+              <span>زيارة الحساب</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="tiktok-card" id="instagram-section">
+          <div class="tiktok-avatar-side">
+            <div class="social-icon-badge">📷</div>
+          </div>
+          <div class="tiktok-info-side">
+            <div class="tiktok-badge-pill">
+              <span>📷</span>
+              <span>Instagram</span>
+            </div>
+            <h3 class="tiktok-username" id="ig-display-name"></h3>
+            <p class="tiktok-handle" id="ig-handle"></p>
+            <p class="tiktok-note" id="ig-note"></p>
+            <a id="ig-link" href="https://www.instagram.com/8tlt8_/" target="_blank" rel="noopener noreferrer" class="tiktok-visit-btn">
+              <span>زيارة الحساب</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         PREVIOUS BIRTHDAYS — only rendered when real dated memories exist
+         ========================================================================== -->
+    <section class="prev-birthdays-section" id="prev-birthdays-section" hidden>
+      <div class="section-header">
+        <div class="section-badge">
+          <span>🎂</span>
+          <span>ذكريات من الماضي</span>
+        </div>
+        <h2 class="section-title">من عيد ميلاد إلى عيد ميلاد</h2>
+      </div>
+      <div class="prev-birthdays-grid" id="prev-birthdays-grid"></div>
     </section>
 
     <!-- ==========================================================================
@@ -317,10 +371,6 @@
       <span class="footer-swan-icon">🦢</span>
       <p class="footer-title">عيد ميلاد سعيد شهد عادل 🎀</p>
       <p class="footer-sub">صُنع هذا الموقع بكل حب واهتمام ليكون ذكرى لا تُنسى في يوم 21 أكتوبر 🤍</p>
-      <a href="admin/index.html" class="footer-admin-link">
-        <span>⚙️</span>
-        <span>إدارة محتوى وصور الموقع (Admin)</span>
-      </a>
     </div>
   </footer>
 
