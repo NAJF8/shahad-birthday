@@ -383,9 +383,25 @@
 
       <div class="admin-card">
         <h2 class="card-title"><span>📷</span> بيانات حساب Instagram العام</h2>
-        <p class="card-subtitle">تم التحقق من وجود هذا الحساب فعلياً، لكنه خاص (Private) — لا يمكن عرض صوره</p>
+        <p class="card-subtitle">البيانات العامة المرتبطة بحساب شهد على انستغرام (@8tlt8_)</p>
 
         <form id="instagram-form">
+          <div class="form-group">
+            <label class="form-label">الصورة الرمزية (Avatar):</label>
+            <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+              <img id="adm-ig-avatar-preview" src="" alt="صورة حساب انستغرام" style="width: 84px; height: 84px; object-fit: cover; border-radius: 50%; border: 2px solid var(--admin-primary); display: none;">
+              <input type="file" id="adm-ig-avatar-input" accept="image/*" style="display: none;">
+              <button type="button" id="btn-ig-avatar-upload" class="btn btn-secondary btn-sm">
+                <span>📤</span>
+                <span>رفع صورة</span>
+              </button>
+              <button type="button" id="btn-ig-avatar-remove" class="btn btn-danger btn-sm" style="display: none;">
+                <span>🗑️</span>
+                <span>إزالة الصورة</span>
+              </button>
+            </div>
+          </div>
+
           <div class="form-grid form-grid-2">
             <div class="form-group">
               <label for="adm-ig-user" class="form-label">اسم المستخدم (Username):</label>

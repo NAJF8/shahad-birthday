@@ -6,6 +6,10 @@ function escapeHTML(str) {
   }[c]));
 }
 
+// Deployed Google Apps Script Web App URL (see scripts/wishes-apps-script.gs).
+// Leave empty to fall back to this browser's own localStorage only.
+const WISHES_API_URL = 'https://script.google.com/macros/s/AKfycbwVqiA_sp4JP5wOnLQra1UXY-QLOJf-j66YJV-QQ__YGt8EbJUzdFywoxc8unhlaBSE/exec';
+
 document.addEventListener('DOMContentLoaded', () => {
   initApp();
 });
@@ -462,15 +466,24 @@ function renderInstagram(igOn) {
   if (!igOn || !siteData.instagram) return;
 
   const ig = siteData.instagram;
+  const avatar = document.getElementById('ig-avatar');
+  const avatarBadge = document.getElementById('ig-avatar-badge');
   const displayName = document.getElementById('ig-display-name');
   const handle = document.getElementById('ig-handle');
   const link = document.getElementById('ig-link');
   const note = document.getElementById('ig-note');
 
+  if (ig.avatar) {
+    if (avatar) { avatar.src = ig.avatar; avatar.style.display = 'block'; }
+    if (avatarBadge) avatarBadge.style.display = 'none';
+  } else {
+    if (avatar) avatar.style.display = 'none';
+    if (avatarBadge) avatarBadge.style.display = 'flex';
+  }
   if (displayName) displayName.textContent = escapeHTML(ig.displayName || 'Shahad');
   if (handle) handle.textContent = `@${escapeHTML(ig.username || '8tlt8_')}`;
   if (link && ig.profileUrl) link.href = ig.profileUrl;
-  if (note) note.textContent = ig.note || (ig.isPrivate ? 'هذا حساب خاص (Private).' : '');
+  if (note) note.textContent = ig.note || '';
 }
 
 // ==========================================================================
@@ -507,21 +520,10 @@ function renderPreviousBirthdays() {
 // ==========================================================================
 // 9. Wishes Wall & Form
 // ==========================================================================
-function renderWishes() {
-  const wishSection = document.getElementById('wishes-section');
+function renderWishesList(wishes) {
   const grid = document.getElementById('wishes-grid');
-  const form = document.getElementById('new-wish-form');
-
-  if (!wishSection || !grid) return;
-
-  if (siteData.sections?.wishes === false) {
-    wishSection.style.display = 'none';
-    return;
-  }
-  wishSection.style.display = 'block';
+  if (!grid) return;
   grid.innerHTML = '';
-
-  const wishes = siteData.wishes || [];
   wishes.forEach(w => {
     const card = document.createElement('div');
     card.className = 'wish-card';
@@ -534,6 +536,32 @@ function renderWishes() {
     `;
     grid.appendChild(card);
   });
+}
+
+function renderWishes() {
+  const wishSection = document.getElementById('wishes-section');
+  const grid = document.getElementById('wishes-grid');
+  const form = document.getElementById('new-wish-form');
+
+  if (!wishSection || !grid) return;
+
+  if (siteData.sections?.wishes === false) {
+    wishSection.style.display = 'none';
+    return;
+  }
+  wishSection.style.display = 'block';
+
+  const localWishes = siteData.wishes || [];
+  renderWishesList(localWishes);
+
+  if (WISHES_API_URL) {
+    fetch(WISHES_API_URL)
+      .then(r => r.json())
+      .then(data => {
+        if (Array.isArray(data.wishes)) renderWishesList(data.wishes);
+      })
+      .catch(() => { /* keep local list if the shared wall is unreachable */ });
+  }
 
   if (form && !form.dataset.bound) {
     form.dataset.bound = 'true';
@@ -557,7 +585,7 @@ function renderWishes() {
       siteData.wishes.unshift(newWish);
       localStorage.setItem('shahad_site_data', JSON.stringify(siteData));
 
-      renderWishes();
+      renderWishesList(siteData.wishes);
       form.reset();
       showToast('تمت إضافة أمنيتكِ الجميلة إلى الجدار 🌸');
 
@@ -568,6 +596,13 @@ function renderWishes() {
           origin: { y: 0.8 },
           colors: ['#ff85a2', '#f472b6', '#ffffff']
         });
+      }
+
+      if (WISHES_API_URL) {
+        fetch(WISHES_API_URL, {
+          method: 'POST',
+          body: JSON.stringify({ author, text })
+        }).catch(() => { /* wish is already shown locally; sync will retry on next load */ });
       }
     });
   }

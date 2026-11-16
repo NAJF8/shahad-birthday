@@ -12,6 +12,9 @@ const ADMIN_USERNAME = 'mohammed';
 const ADMIN_PASSWORD = '0224';
 const AUTH_SESSION_KEY = 'shahad_admin_authed';
 
+// Must match assets/js/app.js's WISHES_API_URL (see scripts/wishes-apps-script.gs).
+const WISHES_API_URL = 'https://script.google.com/macros/s/AKfycbwVqiA_sp4JP5wOnLQra1UXY-QLOJf-j66YJV-QQ__YGt8EbJUzdFywoxc8unhlaBSE/exec';
+
 document.addEventListener('DOMContentLoaded', () => {
   setupLoginGate();
 });
@@ -54,6 +57,7 @@ function initDashboard() {
   setupForms();
   setupUploadZone();
   setupPrevBdayUpload();
+  setupInstagramAvatarUpload();
   setupGlobalActions();
 
   document.getElementById('btn-logout')?.addEventListener('click', () => {
@@ -208,6 +212,55 @@ function populateInstagram() {
   if (userEl) userEl.value = adminData.instagram.username || '8tlt8_';
   if (dispEl) dispEl.value = adminData.instagram.displayName || 'Shahad';
   if (linkEl) linkEl.value = adminData.instagram.profileUrl || 'https://www.instagram.com/8tlt8_/';
+
+  updateInstagramAvatarPreview(adminData.instagram.avatar || '');
+}
+
+function updateInstagramAvatarPreview(dataUrl) {
+  const preview = document.getElementById('adm-ig-avatar-preview');
+  const removeBtn = document.getElementById('btn-ig-avatar-remove');
+  if (preview) {
+    preview.src = dataUrl || '';
+    preview.style.display = dataUrl ? 'block' : 'none';
+  }
+  if (removeBtn) removeBtn.style.display = dataUrl ? 'inline-flex' : 'none';
+}
+
+// 6c. Instagram Avatar Upload
+function setupInstagramAvatarUpload() {
+  const uploadBtn = document.getElementById('btn-ig-avatar-upload');
+  const removeBtn = document.getElementById('btn-ig-avatar-remove');
+  const fileInput = document.getElementById('adm-ig-avatar-input');
+  if (!uploadBtn || !fileInput) return;
+
+  uploadBtn.addEventListener('click', () => fileInput.click());
+
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      alert('يرجى اختيار ملف صورة صالح.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      adminData.instagram = adminData.instagram || {};
+      adminData.instagram.avatar = e.target.result;
+      updateInstagramAvatarPreview(adminData.instagram.avatar);
+      saveDataSilent();
+      showToast('تم تحديث صورة حساب Instagram 📷');
+    };
+    reader.readAsDataURL(file);
+    fileInput.value = '';
+  });
+
+  removeBtn?.addEventListener('click', () => {
+    adminData.instagram = adminData.instagram || {};
+    adminData.instagram.avatar = '';
+    updateInstagramAvatarPreview('');
+    saveDataSilent();
+    showToast('تمت إزالة صورة حساب Instagram');
+  });
 }
 
 // 6c. Previous Birthdays Manager
@@ -346,8 +399,20 @@ function populateWishes() {
   const container = document.getElementById('adm-wishes-list');
   if (!container) return;
 
+  renderWishesList(adminData.wishes || [], container, false);
+
+  if (WISHES_API_URL) {
+    fetch(WISHES_API_URL)
+      .then(r => r.json())
+      .then(data => {
+        if (Array.isArray(data.wishes)) renderWishesList(data.wishes, container, true);
+      })
+      .catch(() => { /* fall back to the locally-saved wishes above */ });
+  }
+}
+
+function renderWishesList(wishes, container, fromSharedWall) {
   container.innerHTML = '';
-  const wishes = adminData.wishes || [];
 
   wishes.forEach((w, index) => {
     const item = document.createElement('div');
@@ -356,13 +421,19 @@ function populateWishes() {
       <div>
         <strong>${escapeHTML(w.author || 'صديق')}</strong>: <span>${escapeHTML(w.text || '')}</span>
       </div>
-      <button class="btn btn-danger btn-sm" data-idx="${index}">🗑️ حذف</button>
+      <button class="btn btn-danger btn-sm">🗑️ حذف</button>
     `;
 
     item.querySelector('button').addEventListener('click', () => {
-      adminData.wishes.splice(index, 1);
-      saveDataSilent();
-      populateWishes();
+      if (fromSharedWall && WISHES_API_URL) {
+        fetch(WISHES_API_URL, { method: 'POST', body: JSON.stringify({ action: 'delete', id: w.id }) })
+          .then(() => populateWishes())
+          .catch(() => showToast('تعذّر حذف التهنئة، حاولي مرة أخرى'));
+      } else {
+        adminData.wishes.splice(index, 1);
+        saveDataSilent();
+        populateWishes();
+      }
       showToast('تم حذف التهنئة');
     });
 

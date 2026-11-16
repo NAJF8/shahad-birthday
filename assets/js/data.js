@@ -157,7 +157,8 @@ window.INITIAL_SITE_DATA = {
     "profileUrl": "https://www.instagram.com/8tlt8_/",
     "verified": true,
     "isPrivate": true,
-    "note": "تم التحقق من وجود هذا الحساب فعلياً (نفس الاسم والرمز 🦢 الموجود في TikTok)، لكنه حساب خاص (Private) — لذلك لا يمكن عرض صوره هنا، فقط رابط المتابعة."
+    "avatar": "",
+    "note": ""
   },
   "previousBirthdays": [],
   "sections": {
