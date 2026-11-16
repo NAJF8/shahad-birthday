@@ -1,0 +1,56 @@
+{
+  "name": "شهد عادل",
+  "birthday": "21 أكتوبر",
+  "birthDate": "2026-10-21",
+  "heroImage": "assets/images/shahad_hero_swan.jpg",
+  "heroTagline": "اليوم كله لكِ، وكل تفصيلة تحتفل بجمالكِ ورقتكِ 🎀",
+  "message": "كل عام وأنتِ بخير شهد عادل،\nأتمنى تكون سنتك الجديدة مليانة فرح وضحكة وذكريات حلوة،\nوتحققين كل شيء تتمنينه 🤍",
+  "gallery": [],
+  "wishes": [
+    {
+      "id": "w1",
+      "author": "محبّوكِ 🤍",
+      "text": "عقبال ١٠٠ سنة يا أحلى وأطيب شهد في الكون 🎀"
+    },
+    {
+      "id": "w2",
+      "author": "صديقة وفية 🌸",
+      "text": "دايماً ضحكتك تنور المكان وتزرع الفرح في القلوب 🤍"
+    },
+    {
+      "id": "w3",
+      "author": "عائلتكِ 🦢",
+      "text": "كل سنة وانتِ أجمل وأسعد، ويا رب تكون سنتك الجديدة كلها توفيق وبركة ✨"
+    },
+    {
+      "id": "w4",
+      "author": "الأصدقاء 🎀",
+      "text": "أنتِ النقاء والجمال، عيد ميلاد سعيد يا أحلى شهد بالدنيا كلها 🎂"
+    }
+  ],
+  "tiktok": {
+    "enabled": true,
+    "username": "8tlt8_",
+    "displayName": "شَهــد 🦢",
+    "profileUrl": "https://www.tiktok.com/@8tlt8_",
+    "avatar": "assets/images/shahad_hero_swan.jpg",
+    "note": "تم جلب الاسم العام والصورة الرمزية (Avatar) لحساب شهد من صفحتها العامة على TikTok بشكل قانوني بدون تسجيل دخول. لم نتمكن من استخراج صور أو فيديوهات أخرى بسبب حماية TikTok ضد الاستخراج الآلي — يمكن رفع صور إضافية من ذكريات شهد يدوياً من لوحة التحكم."
+  },
+  "sections": {
+    "intro": true,
+    "hero": true,
+    "countdown": true,
+    "message": true,
+    "gallery": true,
+    "tiktok": true,
+    "wishes": true,
+    "cake": true,
+    "music": true
+  },
+  "music": {
+    "enabled": true,
+    "autoPlay": false,
+    "title": "صندوق الموسيقى الحالم 🎶 Happy Birthday Shahad",
+    "type": "synth"
+  }
+}

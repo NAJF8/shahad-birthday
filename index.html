@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>عيد ميلاد سعيد شهد عادل 🎀 | 21 أكتوبر</title>
+  <meta name="description" content="موقع عيد ميلاد شهد عادل الخاص - كل عام وأنتِ بخير، وأتمنى تكون سنتكِ الجديدة مليانة فرح وضحكة وذكريات حلوة 🤍">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="عيد ميلاد سعيد شهد عادل 🎀">
+  <meta property="og:description" content="كل عام وأنتِ بخير يا أحلى شهد، أتمنى تكون سنتكِ الجديدة كلها فرح وذكريات حلوة 🤍">
+  <meta property="og:image" content="assets/images/shahad_hero_swan.jpg">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎀</text></svg>">
+
+  <!-- Fonts & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Background Ambient Glow & Floating Petals -->
+  <div class="ambient-background">
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
+  </div>
+  <canvas id="petals-canvas" class="ambient-background"></canvas>
+
+  <!-- ==========================================================================
+       INTRO SCREEN: Dreamy Pink Swan Motion & Celebration Greeting
+       ========================================================================== -->
+  <aside id="intro-screen" class="intro-screen" aria-label="شاشة الترحيب بعيد ميلاد شهد عادل">
+    <div class="intro-title-wrapper">
+      <div class="intro-badge">
+        <span>✨</span>
+        <span>21 أكتوبر • يوم استثنائي</span>
+        <span>✨</span>
+      </div>
+      <h1 class="intro-title">
+        <span class="gradient-text">عيد ميلاد سعيد</span><br>
+        <span>شهد عادل 🎀</span>
+      </h1>
+      <p class="intro-subtitle">كل عام وأنتِ أجمل، وكل يوم يحمل لكِ فرحة تليق بقلبكِ 🤍</p>
+    </div>
+
+    <!-- The Graceful Pink Swan Swimming Scene -->
+    <div class="swan-container">
+      <div class="swan-ripples"></div>
+      <!-- SVG Cute Swan wearing a Pink Bonnet -->
+      <svg class="cute-swan-svg" viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Water shadow -->
+        <ellipse cx="160" cy="255" rx="100" ry="18" fill="rgba(244, 114, 182, 0.22)" />
+        <ellipse cx="155" cy="254" rx="75" ry="12" fill="rgba(255, 255, 255, 0.45)" />
+
+        <!-- Swan Body -->
+        <path d="M75 190 C65 145, 120 135, 165 145 C205 155, 250 170, 260 215 C265 240, 220 255, 160 255 C100 255, 80 230, 75 190 Z" fill="#FFFFFF" stroke="#FCE7F3" stroke-width="2" />
+        
+        <!-- Soft Pink Feather Layers on Wing -->
+        <path d="M110 185 C145 165, 205 180, 235 220 C205 235, 150 238, 115 210 Z" fill="#FFF5F7" stroke="#FBCFE8" stroke-width="1.5" />
+        <path d="M135 195 C165 180, 215 190, 228 225 C200 238, 160 235, 135 215 Z" fill="#FFE4E9" opacity="0.8" />
+        
+        <!-- Graceful Neck -->
+        <path d="M195 160 C190 120, 205 75, 175 48 C160 35, 138 42, 142 62 C146 80, 168 105, 165 155 Z" fill="#FFFFFF" stroke="#FCE7F3" stroke-width="2" />
+        
+        <!-- Head -->
+        <circle cx="152" cy="52" r="24" fill="#FFFFFF" />
+
+        <!-- Soft Rosy Blush Cheek -->
+        <ellipse cx="144" cy="56" rx="6" ry="4" fill="#F472B6" opacity="0.45" />
+
+        <!-- Golden Beak & Dark Mask -->
+        <path d="M132 50 C122 51, 105 57, 100 63 C108 67, 124 65, 134 60 Z" fill="#FB923C" stroke="#F97316" stroke-width="1" />
+        <path d="M136 50 C130 52, 126 56, 134 59 C138 56, 140 52, 136 50 Z" fill="#1F2937" />
+        <circle cx="140" cy="48" r="3" fill="#111827" />
+        <circle cx="141" cy="47" r="1" fill="#FFFFFF" />
+
+        <!-- Pink Sleep Bonnet / Hat with Lace Ruffle & Bow (from her real TikTok photo!) -->
+        <path d="M142 32 C158 26, 178 36, 175 58 C173 70, 158 74, 146 72 C142 64, 140 45, 142 32 Z" fill="#FFCCD5" stroke="#F472B6" stroke-width="1.5" />
+        <!-- Lace ruffles around bonnet -->
+        <path d="M140 33 Q143 28 147 31 Q152 27 156 30 Q161 27 165 31 Q170 29 173 34 Q177 39 175 45 Q178 51 174 57 Q175 63 170 67 Q165 72 158 72 Q151 74 146 71" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" />
+        <!-- Ribbon bow on bonnet -->
+        <ellipse cx="142" cy="48" rx="5" ry="3" fill="#FF7597" transform="rotate(-30 142 48)" />
+        <ellipse cx="142" cy="53" rx="5" ry="3" fill="#FF7597" transform="rotate(30 142 53)" />
+        <circle cx="142" cy="50" r="2.5" fill="#DB2777" />
+        <path d="M143 52 Q148 64 146 72 M141 52 Q138 65 135 70" stroke="#FF7597" stroke-width="2" stroke-linecap="round" fill="none" />
+      </svg>
+    </div>
+
+    <!-- Soft Water Surface with Waves -->
+    <div class="intro-water-surface">
+      <div class="wave wave-1"></div>
+      <div class="wave wave-2"></div>
+    </div>
+
+    <button id="enter-site-btn" class="intro-enter-btn" aria-label="ادخلي إلى عالمكِ الوردي">
+      <span>ادخلي إلى عالمكِ الوردي</span>
+      <span>🌸</span>
+    </button>
+  </aside>
+
+  <!-- ==========================================================================
+       SITE HEADER: Glass Navigation & Floating Controls
+       ========================================================================== -->
+  <header class="site-header">
+    <nav class="nav-glass-bar" aria-label="التنقل الرئيسي">
+      <a href="#" class="brand-pill">
+        <img src="assets/images/shahad_hero_swan.jpg" alt="شهد عادل" class="brand-avatar" onerror="this.style.display='none'">
+        <span>شهد عادل 🦢</span>
+      </a>
+
+      <div class="header-actions">
+        <!-- Floating Music Player Toggle -->
+        <button id="music-toggle-btn" class="icon-btn" title="تشغيل صندوق الموسيقى الحالم" aria-label="تشغيل/إيقاف الموسيقى">
+          <span>🎶</span>
+        </button>
+
+        <!-- Confetti Burst Button -->
+        <button id="confetti-btn" class="icon-btn" title="انثري الفرح والورد" aria-label="انثري الاحتفال">
+          <span>✨</span>
+        </button>
+
+        <!-- Direct Admin Link -->
+        <a href="admin/index.html" class="admin-link-btn" title="لوحة إدارة الموقع">
+          <span>⚙️</span>
+          <span>لوحة التحكم</span>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ==========================================================================
+       HERO SECTION: Main Celebration & Specific Photo
+       ========================================================================== -->
+  <main>
+    <section class="hero-section" id="hero-section">
+      <div class="hero-main-card">
+        <div class="hero-glow-ring"></div>
+        <div class="hero-image-wrapper">
+          <img id="hero-img" class="hero-img" src="assets/images/shahad_hero_swan.jpg" alt="شهد عادل">
+          <div class="hero-ribbon-badge">
+            <span id="hero-badge-text">21 أكتوبر 🎀</span>
+          </div>
+        </div>
+      </div>
+
+      <h1 class="hero-title" id="hero-title">عيد ميلاد سعيد شهد عادل 🎀</h1>
+      <p class="hero-tagline" id="hero-tagline">اليوم كله لكِ، وكل تفصيلة تحتفل بجمالكِ ورقتكِ 🤍</p>
+
+      <!-- Countdown to 21 October -->
+      <div class="countdown-box" id="countdown-box" aria-label="العد التنازلي لعيد الميلاد">
+        <div class="countdown-item">
+          <span class="countdown-num" id="cnt-days">00</span>
+          <span class="countdown-label">يوم</span>
+        </div>
+        <div class="countdown-divider"></div>
+        <div class="countdown-item">
+          <span class="countdown-num" id="cnt-hours">00</span>
+          <span class="countdown-label">ساعة</span>
+        </div>
+        <div class="countdown-divider"></div>
+        <div class="countdown-item">
+          <span class="countdown-num" id="cnt-mins">00</span>
+          <span class="countdown-label">دقيقة</span>
+        </div>
+        <div class="countdown-divider"></div>
+        <div class="countdown-item">
+          <span class="countdown-num" id="cnt-secs">00</span>
+          <span class="countdown-label">ثانية</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         BIRTHDAY MESSAGE SECTION (Wax-Seal Luxury Letter)
+         ========================================================================== -->
+    <section class="message-section" id="message-section">
+      <div class="letter-card">
+        <div class="letter-seal" aria-hidden="true">💌</div>
+        <h2 class="letter-header-title">رسالة من القلب إلى شهد عادل 🤍</h2>
+        <p class="letter-text" id="letter-content">
+كل عام وأنتِ بخير شهد عادل،
+أتمنى تكون سنتك الجديدة مليانة فرح وضحكة وذكريات حلوة،
+وتحققين كل شيء تتمنينه 🤍
+        </p>
+        <div class="letter-signature">
+          <span>بكل محبة وتقدير 🌸</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         INTERACTIVE BIRTHDAY CAKE SECTION
+         ========================================================================== -->
+    <section class="cake-section" id="cake-section">
+      <div class="cake-card">
+        <div class="cake-stage">
+          <div class="candles-row">
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+          </div>
+          <div class="cake-tier tier-top"></div>
+          <div class="cake-tier tier-middle"></div>
+          <div class="cake-tier tier-bottom"></div>
+          <div class="cake-plate"></div>
+        </div>
+
+        <button id="blow-candles-btn" class="blow-cake-btn">
+          <span>اطفئِ الشموع وتمني أمنية</span>
+          <span>🎂✨</span>
+        </button>
+
+        <div id="cake-wish-msg" class="wish-revealed-msg">
+          🎉 يا رب تكون سنة كلها إنجاز وسعادة وضحكات تملأ روحكِ يا شهد! 🤍
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         MEMORIES & PHOTO GALLERY SECTION (Polaroid Masonry)
+         ========================================================================== -->
+    <section class="gallery-section" id="gallery-section">
+      <div class="section-header">
+        <div class="section-badge">
+          <span>📸</span>
+          <span>أجمل اللحظات</span>
+        </div>
+        <h2 class="section-title">معرض ذكريات شهد</h2>
+        <p class="section-desc">مجموعة صور وذكريات جميلة محفورة في القلب 🌸</p>
+      </div>
+
+      <div class="polaroid-grid" id="gallery-grid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         TIKTOK SPECIAL FEATURE SECTION
+         ========================================================================== -->
+    <section class="tiktok-section" id="tiktok-section">
+      <div class="tiktok-card">
+        <div class="tiktok-avatar-side">
+          <img id="tt-avatar" class="tiktok-avatar-img" src="assets/images/shahad_hero_swan.jpg" alt="حساب تيك توك شهد">
+        </div>
+        <div class="tiktok-info-side">
+          <div class="tiktok-badge-pill">
+            <span>🎵</span>
+            <span>حساب TikTok العام</span>
+          </div>
+          <h3 class="tiktok-username" id="tt-display-name">شَهــد 🦢</h3>
+          <p class="tiktok-handle" id="tt-handle">@8tlt8_</p>
+          <p class="tiktok-note" id="tt-note">
+            تم جلب الاسم العام والصورة الرمزية لحساب شهد من صفحتها العامة على TikTok بشكل قانوني. لم نتمكن من استخراج صور أو فيديوهات أخرى بسبب حماية TikTok — يمكن رفع صور إضافية من لوحة التحكم.
+          </p>
+          <a id="tt-link" href="https://www.tiktok.com/@8tlt8_" target="_blank" rel="noopener noreferrer" class="tiktok-visit-btn">
+            <span>زيارة الملف الشخصي على TikTok</span>
+            <span>↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         WISHES WALL & INTERACTIVE FORM
+         ========================================================================== -->
+    <section class="wishes-section" id="wishes-section">
+      <div class="section-header">
+        <div class="section-badge">
+          <span>💌</span>
+          <span>تمنيات وتهاني</span>
+        </div>
+        <h2 class="section-title">جدار أمنيات عيد الميلاد</h2>
+        <p class="section-desc">رسائل محبة وتهاني صادقة بمناسبة يومكِ السعيد 🎀</p>
+      </div>
+
+      <div class="wishes-grid" id="wishes-grid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+
+      <!-- Add New Wish Form -->
+      <div class="new-wish-box">
+        <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--deep-rose); margin-bottom: 16px;">
+          اتركِ تهنئة جميلة لشهد 🌸
+        </h3>
+        <form id="new-wish-form">
+          <div class="form-group">
+            <label for="wish-author" class="form-label">اسمكِ أو صفتكِ:</label>
+            <input type="text" id="wish-author" class="form-input" placeholder="مثال: سارة / محبّوكِ 🤍" required>
+          </div>
+          <div class="form-group">
+            <label for="wish-message" class="form-label">أمنيتكِ لشهد:</label>
+            <textarea id="wish-message" rows="3" class="form-textarea" placeholder="اكتبِ أرق كلمات التهنئة والمحبة..." required></textarea>
+          </div>
+          <button type="submit" class="submit-wish-btn">
+            <span>إرسال التهنئة إلى الجدار</span>
+            <span>💌</span>
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <span class="footer-swan-icon">🦢</span>
+      <p class="footer-title">عيد ميلاد سعيد شهد عادل 🎀</p>
+      <p class="footer-sub">صُنع هذا الموقع بكل حب واهتمام ليكون ذكرى لا تُنسى في يوم 21 أكتوبر 🤍</p>
+      <a href="admin/index.html" class="footer-admin-link">
+        <span>⚙️</span>
+        <span>إدارة محتوى وصور الموقع (Admin)</span>
+      </a>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       LIGHTBOX MODAL (Component 07 from AGENTS.md)
+       ========================================================================== -->
+  <dialog id="lightbox-dialog" class="lightbox-dialog" aria-modal="true" aria-label="عرض الصورة المكبرة">
+    <button id="lightbox-close" class="lightbox-close-btn" aria-label="إغلاق">&times;</button>
+    <div class="lightbox-content">
+      <div class="lightbox-img-box">
+        <img id="lightbox-img" class="lightbox-img" src="" alt="عرض مكبر">
+      </div>
+      <div class="lightbox-bar">
+        <span id="lightbox-caption" class="lightbox-caption"></span>
+        <div class="lightbox-nav-btns">
+          <button id="lightbox-prev" class="icon-btn" title="الصورة السابقة (السهم الأيمن)" aria-label="الصورة السابقة">➡️</button>
+          <button id="lightbox-next" class="icon-btn" title="الصورة التالية (السهم الأيسر)" aria-label="الصورة التالية">⬅️</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/audio.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    // Confetti button click
+    document.getElementById('confetti-btn')?.addEventListener('click', () => {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 60,
+          spread: 80,
+          origin: { y: 0.2 },
+          colors: ['#ff85a2', '#f472b6', '#fbcfe8', '#ffffff', '#fbbf24']
+        });
+      }
+      showToast('انثري الورد والبهجة! 🌸✨');
+    });
+  </script>
+</body>
+</html>

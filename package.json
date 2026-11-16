@@ -1,0 +1,19 @@
+{
+  "name": "shahad-birthday",
+  "version": "1.0.0",
+  "description": "موقع عيد ميلاد شهد عادل 🎀 | 21 أكتوبر",
+  "scripts": {
+    "start": "npx serve -l 3000 .",
+    "dev": "npx serve -l 3000 .",
+    "serve": "npx serve -l 3000 ."
+  },
+  "keywords": [
+    "birthday",
+    "microsite",
+    "shahad-adel",
+    "pink-theme",
+    "cute-swan"
+  ],
+  "author": "",
+  "license": "MIT"
+}

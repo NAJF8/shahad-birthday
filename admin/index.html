@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحكم | موقع عيد ميلاد شهد عادل 🎀</title>
+  
+  <!-- Fonts & Style -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/fonts.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Admin Header -->
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <div class="admin-brand">
+        <div class="admin-logo">🎀</div>
+        <div class="admin-title-box">
+          <h1>لوحة تحكم موقع عيد الميلاد</h1>
+          <p>إدارة بيانات وصور وأقسام موقع شهد عادل</p>
+        </div>
+      </div>
+
+      <div class="admin-nav-actions">
+        <a href="../index.html" class="btn btn-secondary">
+          <span>⬅️</span>
+          <span>معاينة الموقع الرئيسي</span>
+        </a>
+        <button id="btn-save-all" class="btn btn-primary">
+          <span>💾</span>
+          <span>حفظ وتطبيق التعديلات</span>
+        </button>
+        <button id="btn-export-json" class="btn btn-secondary" title="تحميل ملف site.json المحدّث">
+          <span>📥</span>
+          <span>تصدير site.json</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="admin-container">
+    
+    <!-- Tabs Navigation -->
+    <nav class="admin-tabs" aria-label="أقسام لوحة التحكم">
+      <button class="tab-btn active" data-target="tab-basic">
+        <span>👤</span>
+        <span>المعلومات الأساسية</span>
+      </button>
+      <button class="tab-btn" data-target="tab-message">
+        <span>💌</span>
+        <span>رسالة عيد الميلاد</span>
+      </button>
+      <button class="tab-btn" data-target="tab-images">
+        <span>🖼️</span>
+        <span>إدارة الصور والمعرض</span>
+      </button>
+      <button class="tab-btn" data-target="tab-toggles">
+        <span>⚙️</span>
+        <span>تشغيل / إيقاف الأقسام</span>
+      </button>
+      <button class="tab-btn" data-target="tab-wishes">
+        <span>📜</span>
+        <span>جدار التمنيات</span>
+      </button>
+      <button class="tab-btn" data-target="tab-tiktok">
+        <span>🎵</span>
+        <span>حساب TikTok</span>
+      </button>
+      <button class="tab-btn" data-target="tab-maintenance">
+        <span>🔄</span>
+        <span>النسخ والاستعادة</span>
+      </button>
+    </nav>
+
+    <!-- TAB 1: Basic Info -->
+    <section id="tab-basic" class="admin-tab-content">
+      <div class="admin-card">
+        <h2 class="card-title"><span>👤</span> البيانات الرئيسية</h2>
+        <p class="card-subtitle">تعديل اسم صاحبة العيد، وتاريخ الميلاد، والعنوان الترحيبي</p>
+
+        <form id="basic-info-form">
+          <div class="form-grid form-grid-2">
+            <div class="form-group">
+              <label for="adm-name" class="form-label">الاسم المعروض:</label>
+              <input type="text" id="adm-name" class="form-input" required>
+              <span class="form-help">الاسم الأساسي الذي يظهر في شاشة البداية وعنوان الصفحة.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="adm-birthday" class="form-label">تاريخ الميلاد:</label>
+              <input type="text" id="adm-birthday" class="form-input" placeholder="21 أكتوبر" required>
+              <span class="form-help">تاريخ اليوم المميز المعروض في الشارات والعد التنازلي.</span>
+            </div>
+
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label for="adm-tagline" class="form-label">النص الترحيبي (Hero Tagline):</label>
+              <input type="text" id="adm-tagline" class="form-input">
+              <span class="form-help">العبارة الرقيقة المكتوبة أسفل الصورة الرئيسية.</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 24px;">
+            <button type="submit" class="btn btn-primary">
+              <span>💾</span>
+              <span>حفظ البيانات الأساسية</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- TAB 2: Birthday Message -->
+    <section id="tab-message" class="admin-tab-content" style="display: none;">
+      <div class="admin-card">
+        <h2 class="card-title"><span>💌</span> رسالة عيد الميلاد الخاصة</h2>
+        <p class="card-subtitle">هذه الرسالة تظهر داخل بطاقة الإهداء الملكية مع ختم الشمع والورد 🤍</p>
+
+        <form id="message-form">
+          <div class="form-group">
+            <label for="adm-message" class="form-label">نص الرسالة:</label>
+            <textarea id="adm-message" rows="6" class="form-textarea" required></textarea>
+            <span class="form-help">يمكنكِ استخدام فواصل الأسطر والإيموجي كما ترغبين.</span>
+          </div>
+
+          <div style="margin-top: 24px;">
+            <button type="submit" class="btn btn-primary">
+              <span>💾</span>
+              <span>حفظ رسالة عيد الميلاد</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- TAB 3: Images & Gallery -->
+    <section id="tab-images" class="admin-tab-content" style="display: none;">
+      <!-- Hero Image Preview Card -->
+      <div class="admin-card">
+        <h2 class="card-title"><span>🌟</span> الصورة الرئيسية الحالية (Hero Image)</h2>
+        <p class="card-subtitle">هذه هي الصورة التي تظهر في صدر الموقع محاطة بالإطار الوردي المتوهج</p>
+
+        <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
+          <div style="width: 140px; height: 140px; border-radius: 20px; overflow: hidden; border: 3px solid var(--admin-primary); box-shadow: 0 4px 14px rgba(236,72,153,0.2);">
+            <img id="adm-hero-thumb" src="" alt="Hero Preview" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div>
+            <div style="font-weight: 600; color: var(--admin-text-main); margin-bottom: 4px;">مسار أو مصدر الصورة:</div>
+            <code id="adm-hero-path" style="background: #fce7f3; padding: 4px 10px; border-radius: 8px; font-size: 0.85rem; color: #831843;"></code>
+            <p style="font-size: 0.85rem; color: #9d174d; margin-top: 8px;">يمكنكِ تعيين أي صورة من المعرض أدناه أو رفع صورة جديدة وتعيينها فورياً.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upload New Image Card -->
+      <div class="admin-card">
+        <h2 class="card-title"><span>📤</span> رفع صورة جديدة</h2>
+        <p class="card-subtitle">ارفعِ صوراً من جهازكِ، وسيتم تخزينها واستعراضها فورياً في الموقع والمعرض</p>
+
+        <input type="file" id="file-upload-input" accept="image/*" style="display: none;">
+        
+        <div id="upload-dropzone" class="upload-dropzone">
+          <div class="upload-icon">📷</div>
+          <div class="upload-title">اسحبي الصورة وأفلتيها هنا، أو اضغطي للاختيار</div>
+          <p style="font-size: 0.85rem; color: #9d174d;">تدعم جميع الصيغ الشائعة (PNG, JPG, WEBP)</p>
+        </div>
+
+        <div id="upload-preview-box" style="display: none; margin-top: 24px; padding: 20px; background: #fff0f5; border-radius: 16px; border: 1px solid #fbcfe8;">
+          <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+            <img id="upload-preview-img" src="" alt="Preview" style="width: 110px; height: 110px; object-fit: cover; border-radius: 14px; border: 2px solid var(--admin-primary);">
+            <div style="flex-grow: 1;">
+              <div class="form-group">
+                <label for="upload-caption-input" class="form-label">وصف / تعليق الصورة:</label>
+                <input type="text" id="upload-caption-input" class="form-input" placeholder="اكتبي تعليقاً لطيفاً لهذه الصورة...">
+              </div>
+              <div style="display: flex; gap: 10px; margin-top: 14px;">
+                <button id="btn-add-uploaded-gallery" class="btn btn-primary">
+                  <span>📸</span>
+                  <span>إضافة إلى المعرض</span>
+                </button>
+                <button id="btn-set-uploaded-hero" class="btn btn-secondary">
+                  <span>🌟</span>
+                  <span>تعيين كصورة رئيسية</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery Grid Manager -->
+      <div class="admin-card">
+        <h2 class="card-title"><span>🖼️</span> إدارة صور المعرض الحالي</h2>
+        <p class="card-subtitle">تعديل التعليقات، تغيير الترتيب، تعيين الصورة كرئيسية، أو حذفها</p>
+
+        <div id="adm-gallery-list" class="admin-gallery-grid">
+          <!-- Rendered dynamically by admin app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: Section Toggles -->
+    <section id="tab-toggles" class="admin-tab-content" style="display: none;">
+      <div class="admin-card">
+        <h2 class="card-title"><span>⚙️</span> تفعيل / إيقاف أقسام الموقع</h2>
+        <p class="card-subtitle">التحكم في ظهور أو إخفاء عناصر الموقع للزوار بضغطة زر واحدة</p>
+
+        <div class="form-grid" style="gap: 14px;">
+          <div class="toggle-item">
+            <span class="toggle-label">🖼️ معرض الصور والذكريات (Gallery)</span>
+            <label class="switch">
+              <input type="checkbox" id="toggle-gallery">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-item">
+            <span class="toggle-label">🎵 قسم حساب تيك توك الخاص بشهد (TikTok Feature)</span>
+            <label class="switch">
+              <input type="checkbox" id="toggle-tiktok">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-item">
+            <span class="toggle-label">📜 جدار التمنيات والتهاني التفاعلي (Wishes Wall)</span>
+            <label class="switch">
+              <input type="checkbox" id="toggle-wishes">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-item">
+            <span class="toggle-label">🎶 صندوق الموسيقى الحالم (Music Player)</span>
+            <label class="switch">
+              <input type="checkbox" id="toggle-music">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-item">
+            <span class="toggle-label">🎂 كعكة عيد الميلاد وإطفاء الشموع (Birthday Cake)</span>
+            <label class="switch">
+              <input type="checkbox" id="toggle-cake">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-item">
+            <span class="toggle-label">⏳ عدّاد الأيام حتى 21 أكتوبر (Countdown Timer)</span>
+            <label class="switch">
+              <input type="checkbox" id="toggle-countdown">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-item">
+            <span class="toggle-label">💌 رسالة التهنئة وبطاقة الإهداء (Letter Message)</span>
+            <label class="switch">
+              <input type="checkbox" id="toggle-message">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: Wishes Wall Management -->
+    <section id="tab-wishes" class="admin-tab-content" style="display: none;">
+      <div class="admin-card">
+        <h2 class="card-title"><span>📜</span> إدارة تمنيات وتهاني الزوار</h2>
+        <p class="card-subtitle">مراجعة وحذف أي رسائل تهنئة مضافة في جدار الأمنيات</p>
+
+        <div id="adm-wishes-list">
+          <!-- Rendered dynamically by admin app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6: TikTok Integration -->
+    <section id="tab-tiktok" class="admin-tab-content" style="display: none;">
+      <div class="admin-card">
+        <h2 class="card-title"><span>🎵</span> بيانات حساب TikTok العام</h2>
+        <p class="card-subtitle">البيانات العامة المرتبطة بحساب شهد على تيك توك (@8tlt8_)</p>
+
+        <form id="tiktok-form">
+          <div class="form-grid form-grid-2">
+            <div class="form-group">
+              <label for="adm-tt-user" class="form-label">اسم المستخدم (Username):</label>
+              <input type="text" id="adm-tt-user" class="form-input">
+            </div>
+
+            <div class="form-group">
+              <label for="adm-tt-display" class="form-label">الاسم الظاهر في الملف:</label>
+              <input type="text" id="adm-tt-display" class="form-input">
+            </div>
+
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label for="adm-tt-link" class="form-label">رابط الحساب المباشر:</label>
+              <input type="url" id="adm-tt-link" class="form-input">
+            </div>
+          </div>
+
+          <div style="margin-top: 24px;">
+            <button type="submit" class="btn btn-primary">
+              <span>💾</span>
+              <span>حفظ بيانات TikTok</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- TAB 7: Backup & Reset -->
+    <section id="tab-maintenance" class="admin-tab-content" style="display: none;">
+      <div class="admin-card">
+        <h2 class="card-title"><span>🔄</span> النسخ الاحتياطي والاستعادة</h2>
+        <p class="card-subtitle">تصدير إعدادات الموقع أو استعادة القيم الأولية من ملف المشروع</p>
+
+        <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px;">
+          <button id="btn-reset-default" class="btn btn-danger">
+            <span>⚠️</span>
+            <span>استعادة الإعدادات والبيانات الأصلية</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="../assets/js/data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
