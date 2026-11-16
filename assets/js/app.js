@@ -107,13 +107,27 @@ function initIntroScreen() {
 // ==========================================================================
 // 2. Hero Section
 // ==========================================================================
+function renderWordRevealTitle(titleEl, prefix, name) {
+  const prefixWords = prefix.split(' ').map((w) => ({ text: w, focal: false }));
+  const nameWords = name.split(' ').map((w) => ({ text: w, focal: true }));
+  const words = [...prefixWords, ...nameWords];
+
+  titleEl.innerHTML = words
+    .map((w, i) => {
+      const delay = (i * 0.09).toFixed(2);
+      const cls = w.focal ? 'word-reveal name-focal' : 'word-reveal';
+      return `<span class="${cls}" style="--word-delay:${delay}s">${escapeHTML(w.text)}</span>`;
+    })
+    .join(' ');
+}
+
 function renderHero() {
   const titleEl = document.getElementById('hero-title');
   const taglineEl = document.getElementById('hero-tagline');
   const imgEl = document.getElementById('hero-img');
   const badgeEl = document.getElementById('hero-badge-text');
 
-  if (titleEl) titleEl.textContent = `عيد ميلاد سعيد ${siteData.name || 'شهد عادل'}`;
+  if (titleEl) renderWordRevealTitle(titleEl, 'عيد ميلاد سعيد', siteData.name || 'شهد عادل');
   if (taglineEl) taglineEl.textContent = siteData.heroTagline || '';
   if (badgeEl) badgeEl.textContent = `${siteData.birthday || '21 أكتوبر'} 🎀`;
   if (imgEl && siteData.heroImage) {
@@ -228,8 +242,11 @@ function renderGallery() {
   const grid = document.getElementById('gallery-grid');
   if (!galSection || !grid) return;
 
-  if (siteData.sections?.gallery === false || !siteData.gallery?.length) {
+  const momentsItems = (siteData.gallery || []).filter((item) => item.type !== 'wall');
+
+  if (siteData.sections?.gallery === false || !momentsItems.length) {
     galSection.style.display = 'none';
+    renderPhotoWall();
     return;
   }
   galSection.style.display = 'block';
@@ -237,7 +254,8 @@ function renderGallery() {
 
   const likedPhotos = JSON.parse(localStorage.getItem('shahad_liked_photos') || '{}');
 
-  siteData.gallery.forEach((item, index) => {
+  momentsItems.forEach((item) => {
+    const index = siteData.gallery.indexOf(item);
     const card = document.createElement('div');
     card.className = 'polaroid-card';
     card.setAttribute('role', 'button');
@@ -285,6 +303,36 @@ function renderGallery() {
     });
 
     grid.appendChild(card);
+  });
+
+  renderPhotoWall();
+}
+
+// ==========================================================================
+// 6b. Photo Wall — collage of items explicitly tagged type:'wall' in admin
+// ==========================================================================
+function renderPhotoWall() {
+  const section = document.getElementById('photowall-section');
+  const collage = document.getElementById('photowall-collage');
+  if (!section || !collage) return;
+
+  const wallItems = (siteData.gallery || [])
+    .map((item, index) => ({ item, index }))
+    .filter(({ item }) => item.type === 'wall');
+
+  if (!wallItems.length) {
+    section.hidden = true;
+    return;
+  }
+  section.hidden = false;
+  collage.innerHTML = '';
+
+  wallItems.forEach(({ item, index }) => {
+    const el = document.createElement('div');
+    el.className = 'photowall-item';
+    el.innerHTML = `<img src="${escapeHTML(item.src)}" alt="${escapeHTML(item.caption || 'صورة من جدار الصور')}" loading="lazy">`;
+    el.addEventListener('click', () => openLightbox(index));
+    collage.appendChild(el);
   });
 }
 

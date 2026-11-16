@@ -272,6 +272,12 @@ function populateGallery() {
       </div>
       <div class="gallery-card-caption">
         <input type="text" class="form-input form-input-sm" value="${escapeHTML(item.caption || '')}" placeholder="وصف الصورة..." data-idx="${index}">
+        <select class="form-input form-input-sm gallery-type-select" data-idx="${index}" style="margin-top:6px">
+          <option value="moments" ${item.type === 'moments' || !item.type ? 'selected' : ''}>لحظات جميلة</option>
+          <option value="wall" ${item.type === 'wall' ? 'selected' : ''}>جدار الصور</option>
+          <option value="portrait" ${item.type === 'portrait' ? 'selected' : ''}>Portrait</option>
+          <option value="other" ${item.type === 'other' ? 'selected' : ''}>أخرى</option>
+        </select>
       </div>
       <div class="gallery-card-actions">
         ${!isHero ? `<button class="btn btn-secondary btn-sm set-hero-btn" data-idx="${index}">🌟 تعيين كرئيسية</button>` : ''}
@@ -285,6 +291,13 @@ function populateGallery() {
     card.querySelector('input').addEventListener('input', (e) => {
       adminData.gallery[index].caption = e.target.value;
       saveDataSilent();
+    });
+
+    // Type / section routing update
+    card.querySelector('.gallery-type-select').addEventListener('change', (e) => {
+      adminData.gallery[index].type = e.target.value;
+      saveDataSilent();
+      showToast('تم تحديث قسم عرض الصورة');
     });
 
     // Set as Hero
@@ -364,6 +377,7 @@ function setupUploadZone() {
   const previewBox = document.getElementById('upload-preview-box');
   const previewImg = document.getElementById('upload-preview-img');
   const captionInput = document.getElementById('upload-caption-input');
+  const typeSelect = document.getElementById('upload-type-select');
   const addGalleryBtn = document.getElementById('btn-add-uploaded-gallery');
   const setHeroBtn = document.getElementById('btn-set-uploaded-hero');
 
@@ -414,12 +428,14 @@ function setupUploadZone() {
   addGalleryBtn?.addEventListener('click', () => {
     if (!currentDataUrl) return;
     const caption = captionInput?.value.trim() || 'لحظة جميلة 🌸';
+    const type = typeSelect?.value || 'moments';
     adminData.gallery = adminData.gallery || [];
     adminData.gallery.unshift({
       id: 'custom_' + Date.now(),
       src: currentDataUrl,
       caption: caption,
-      date: 'صورة مضافة حديثاً'
+      date: 'صورة مضافة حديثاً',
+      type: type
     });
     saveDataSilent();
     populateGallery();
@@ -441,6 +457,7 @@ function setupUploadZone() {
     currentDataUrl = null;
     if (fileInput) fileInput.value = '';
     if (captionInput) captionInput.value = '';
+    if (typeSelect) typeSelect.value = 'moments';
     if (previewBox) previewBox.style.display = 'none';
   }
 }

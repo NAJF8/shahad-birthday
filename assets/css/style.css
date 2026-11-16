@@ -558,6 +558,32 @@ body {
   line-height: 1.25;
 }
 
+/* Word-by-word reveal for the hero title: each .word-reveal span fades,
+   un-blurs and lifts in with a short per-word delay set inline by JS. */
+.hero-title .word-reveal {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(14px);
+  animation: wordRevealIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--word-delay, 0s);
+}
+.hero-title .word-reveal.name-focal {
+  color: var(--deep-rose);
+  font-size: 1.08em;
+}
+@keyframes wordRevealIn {
+  to { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-title .word-reveal {
+    animation: none !important;
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+
 .hero-tagline {
   font-size: clamp(1.05rem, 2.4vw, 1.35rem);
   color: #831843;
@@ -873,6 +899,27 @@ body {
   }
 }
 
+/* Editorial variant: first photo is a large "featured" card, rest vary in
+   aspect ratio so the grid reads as a curated album, not a repeating tile. */
+@media (min-width: 640px) {
+  .editorial-grid {
+    grid-auto-flow: dense;
+  }
+  .editorial-grid .polaroid-card:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .editorial-grid .polaroid-card:nth-child(1) .polaroid-img-wrapper {
+    aspect-ratio: 4/3;
+  }
+  .editorial-grid .polaroid-card:nth-child(3n+2) .polaroid-img-wrapper {
+    aspect-ratio: 3/4;
+  }
+  .editorial-grid .polaroid-card:nth-child(3n) .polaroid-img-wrapper {
+    aspect-ratio: 1/1;
+  }
+}
+
 .polaroid-card {
   background: #ffffff;
   padding: 14px 14px 22px;
@@ -981,6 +1028,51 @@ body {
   .social-grid {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+/* ==========================================================================
+   Photo Wall — editorial collage (tidy, not chaotic: a small fixed set of
+   rotation/offset values cycles through the items, never random per-load)
+   ========================================================================== */
+.photowall-section {
+  position: relative;
+  z-index: 10;
+  max-width: 1100px;
+  margin: 0 auto 90px;
+  padding: 0 20px;
+}
+.photowall-collage {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px 14px;
+  padding: 10px 0 26px;
+}
+.photowall-item {
+  width: 190px;
+  background: #fff;
+  padding: 8px 8px 14px;
+  border-radius: 10px;
+  box-shadow: 0 12px 26px -10px rgba(157, 23, 77, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0s;
+  cursor: pointer;
+}
+.photowall-item img {
+  width: 100%;
+  aspect-ratio: 1/1.1;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+.photowall-item:nth-child(5n+1) { transform: rotate(-3deg) translateY(6px); }
+.photowall-item:nth-child(5n+2) { transform: rotate(2.5deg); }
+.photowall-item:nth-child(5n+3) { transform: rotate(-1.5deg) translateY(-8px); }
+.photowall-item:nth-child(5n+4) { transform: rotate(3deg) translateY(10px); }
+.photowall-item:nth-child(5n+5) { transform: rotate(-2deg); }
+.photowall-item:hover {
+  transform: rotate(0deg) translateY(-6px) scale(1.04);
+  box-shadow: 0 20px 38px -10px rgba(157, 23, 77, 0.4);
+  z-index: 5;
 }
 
 /* ==========================================================================

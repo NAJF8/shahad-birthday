@@ -193,67 +193,49 @@
     </section>
 
     <!-- ==========================================================================
-         BIRTHDAY MESSAGE SECTION (Wax-Seal Luxury Letter)
-         ========================================================================== -->
-    <section class="message-section" id="message-section">
-      <div class="letter-card">
-        <div class="letter-seal" aria-hidden="true">💌</div>
-        <h2 class="letter-header-title">رسالة من القلب إلى شهد عادل 🤍</h2>
-        <p class="letter-text" id="letter-content">
-كل عام وأنتِ بخير شهد عادل،
-أتمنى تكون سنتك الجديدة مليانة فرح وضحكة وذكريات حلوة،
-وتحققين كل شيء تتمنينه 🤍
-        </p>
-        <div class="letter-signature">
-          <span>بكل محبة وتقدير 🌸</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-         INTERACTIVE BIRTHDAY CAKE SECTION
-         ========================================================================== -->
-    <section class="cake-section" id="cake-section">
-      <div class="cake-card">
-        <div class="cake-stage">
-          <div class="candles-row">
-            <div class="candle"><div class="flame"></div></div>
-            <div class="candle"><div class="flame"></div></div>
-            <div class="candle"><div class="flame"></div></div>
-          </div>
-          <div class="cake-tier tier-top"></div>
-          <div class="cake-tier tier-middle"></div>
-          <div class="cake-tier tier-bottom"></div>
-          <div class="cake-plate"></div>
-        </div>
-
-        <button id="blow-candles-btn" class="blow-cake-btn">
-          <span>اطفئِ الشموع وتمني أمنية</span>
-          <span>🎂✨</span>
-        </button>
-
-        <div id="cake-wish-msg" class="wish-revealed-msg">
-          🎉 يا رب تكون سنة كلها إنجاز وسعادة وضحكات تملأ روحكِ يا شهد! 🤍
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-         MEMORIES & PHOTO GALLERY SECTION (Polaroid Masonry)
+         MOMENTS — Editorial Memories (mixed-size cards, featured-first)
          ========================================================================== -->
     <section class="gallery-section" id="gallery-section">
       <div class="section-header">
         <div class="section-badge">
           <span>📸</span>
-          <span>أجمل اللحظات</span>
+          <span>Scene 01</span>
         </div>
-        <h2 class="section-title">معرض ذكريات شهد</h2>
+        <h2 class="section-title">لحظات جميلة</h2>
         <p class="section-desc">مجموعة صور وذكريات جميلة محفورة في القلب 🌸</p>
       </div>
 
-      <div class="polaroid-grid" id="gallery-grid">
+      <div class="polaroid-grid editorial-grid" id="gallery-grid">
         <!-- Rendered dynamically by app.js -->
       </div>
+    </section>
+
+    <!-- ==========================================================================
+         PREVIOUS BIRTHDAYS — only rendered when real dated memories exist
+         ========================================================================== -->
+    <section class="prev-birthdays-section" id="prev-birthdays-section" hidden>
+      <div class="section-header">
+        <div class="section-badge">
+          <span>🎂</span>
+          <span>Scene 02</span>
+        </div>
+        <h2 class="section-title">ذكريات أعياد الميلاد</h2>
+      </div>
+      <div class="prev-birthdays-grid" id="prev-birthdays-grid"></div>
+    </section>
+
+    <!-- ==========================================================================
+         PHOTO WALL — editorial collage, only rendered when real photos are tagged for it
+         ========================================================================== -->
+    <section class="photowall-section" id="photowall-section" hidden>
+      <div class="section-header">
+        <div class="section-badge">
+          <span>🖼️</span>
+          <span>Scene 03</span>
+        </div>
+        <h2 class="section-title">جدار الصور</h2>
+      </div>
+      <div class="photowall-collage" id="photowall-collage"></div>
     </section>
 
     <!-- ==========================================================================
@@ -310,17 +292,21 @@
     </section>
 
     <!-- ==========================================================================
-         PREVIOUS BIRTHDAYS — only rendered when real dated memories exist
+         BIRTHDAY MESSAGE SECTION (Wax-Seal Luxury Letter)
          ========================================================================== -->
-    <section class="prev-birthdays-section" id="prev-birthdays-section" hidden>
-      <div class="section-header">
-        <div class="section-badge">
-          <span>🎂</span>
-          <span>ذكريات من الماضي</span>
+    <section class="message-section" id="message-section">
+      <div class="letter-card">
+        <div class="letter-seal" aria-hidden="true">💌</div>
+        <h2 class="letter-header-title">رسالة من القلب إلى شهد عادل 🤍</h2>
+        <p class="letter-text" id="letter-content">
+كل عام وأنتِ بخير شهد عادل،
+أتمنى تكون سنتك الجديدة مليانة فرح وضحكة وذكريات حلوة،
+وتحققين كل شيء تتمنينه 🤍
+        </p>
+        <div class="letter-signature">
+          <span>بكل محبة وتقدير 🌸</span>
         </div>
-        <h2 class="section-title">من عيد ميلاد إلى عيد ميلاد</h2>
       </div>
-      <div class="prev-birthdays-grid" id="prev-birthdays-grid"></div>
     </section>
 
     <!-- ==========================================================================
@@ -359,6 +345,34 @@
             <span>💌</span>
           </button>
         </form>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         INTERACTIVE BIRTHDAY CAKE SECTION — Final Scene lead-in
+         ========================================================================== -->
+    <section class="cake-section" id="cake-section">
+      <div class="cake-card">
+        <div class="cake-stage">
+          <div class="candles-row">
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+          </div>
+          <div class="cake-tier tier-top"></div>
+          <div class="cake-tier tier-middle"></div>
+          <div class="cake-tier tier-bottom"></div>
+          <div class="cake-plate"></div>
+        </div>
+
+        <button id="blow-candles-btn" class="blow-cake-btn">
+          <span>اطفئِ الشموع وتمني أمنية</span>
+          <span>🎂✨</span>
+        </button>
+
+        <div id="cake-wish-msg" class="wish-revealed-msg">
+          🎉 يا رب تكون سنة كلها إنجاز وسعادة وضحكات تملأ روحكِ يا شهد! 🤍
+        </div>
       </div>
     </section>
   </main>
