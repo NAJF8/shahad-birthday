@@ -77,12 +77,6 @@ function initIntroScreen() {
   const enterBtn = document.getElementById('enter-site-btn');
   if (!intro || !enterBtn) return;
 
-  // Check if visited in this session
-  if (sessionStorage.getItem('shahad_intro_seen')) {
-    intro.style.display = 'none';
-    return;
-  }
-
   let dismissed = false;
   let autoAdvanceTimer = null;
 
@@ -110,7 +104,6 @@ function initIntroScreen() {
 
     // Smooth cinematic exit: fade + scale + blur (not a plain display:none cut)
     intro.classList.add('fade-out');
-    sessionStorage.setItem('shahad_intro_seen', 'true');
     setTimeout(() => {
       intro.style.display = 'none';
     }, 1100);
